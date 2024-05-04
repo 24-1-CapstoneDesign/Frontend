@@ -1,10 +1,12 @@
 import { Link } from "react-router-dom";
+import NavAfterBar from "../nav_after_bar";
 
 export default function Main() {
   return (
     <div>
-      <h1>Main화면</h1>
+      <NavAfterBar />
 
+      <h1>Main화면</h1>
       <p>타바 메인화면</p>
 
       <h2>
