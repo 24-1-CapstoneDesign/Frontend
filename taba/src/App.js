@@ -3,6 +3,7 @@ import Intro from "./routes/Intro";
 import Main from "./routes/Main";
 import Statics from "./routes/Statics";
 import Option from "./routes/Option";
+import NavAfterBar from "./nav_after_bar";
 
 function App() {
   return (
@@ -24,5 +25,3 @@ function App() {
 }
 
 export default App;
-
-//hi
