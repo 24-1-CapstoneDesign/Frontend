@@ -1,0 +1,114 @@
+.header {
+  height: 96px;
+  display: flex;
+  justify-content: space-between;
+  background-color: #f8f8fb;
+  border-bottom-left-radius: 24px;
+  border-bottom-right-radius: 24px;
+  box-shadow: 0px 24px 48px -8px rgba(39, 76, 119, 0.16);
+}
+
+.logo {
+  display: flex;
+  flex: none;
+  padding: 24px 80px;
+  align-items: center;
+  width: 148px;
+  height: 48px;
+}
+
+.right {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center; /* 세로축 가운데 정렬 */
+  flex: 1;
+}
+
+.password-wrapper {
+  display: flex;
+  justify-content: center; /* 가로축 가운데 정렬 */
+  align-items: center; /* 세로축 가운데 정렬 */
+  overflow: hidden;
+  padding: 1px 12px; /* 필요에 따라 조정 */
+  border-radius: 12px;
+  border: 1px solid #213e57;
+  margin-right: 36px;
+  width: 150px;
+  height: 50px;
+}
+
+.password-text {
+  display: flex;
+  font-size: 24px;
+  font-weight: 500;
+  text-align: center;
+  text-decoration: none; /* 밑줄 제거 */
+  color: inherit; /* 링크 색상을 텍스트와 동일하게 설정 */
+  color: #141414;
+}
+
+.greeting-normal {
+  display: flex;
+  font-size: 24px;
+}
+
+.greeting-bold {
+  display: flex;
+  font-weight: 700;
+  font-size: 24px;
+  margin-right: 36px;
+}
+
+.logout {
+  margin-right: 80px;
+  padding: 0px;
+  align-items: center;
+}
+
+.menu {
+  display: none;
+}
+
+@media screen and (max-width: 360px) {
+  .logo {
+    display: flex;
+    flex: none;
+    padding: 24px 24px;
+    align-items: center;
+    width: 120px;
+    height: 40px;
+  }
+
+  .menu {
+    margin-right: 20px;
+    padding: 20px;
+    align-items: center;
+    display: block;
+  }
+
+  /* 로고를 제외한 다른 요소들 숨기기 */
+  .right,
+  .password-wrapper,
+  .greeting-normal,
+  .greeting-bold,
+  .logout {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .logo {
+    display: flex;
+    flex: none;
+    padding: 24px 24px;
+    align-items: center;
+    width: 148px;
+    height: 48px;
+  }
+
+  .logout {
+    margin-right: 24px;
+    padding: 0px;
+    align-items: center;
+  }
+}
