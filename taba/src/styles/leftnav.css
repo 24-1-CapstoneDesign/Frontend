@@ -1,0 +1,76 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans:wght@500&display=swap"); /* Noto Sans font 가져옴 */
+
+.left-nav {
+  display: flex;
+  flex-direction: column; /* 방향을 수직으로 설정 */
+  align-items: flex-start; /* 아이템들을 왼쪽 정렬 */
+  width: 416px; /* 네비게이션 바의 너비 */
+  height: 224px; /* 네비게이션 바의 높이 */
+  gap: 16px; /* 링크 사이의 간격 */
+}
+
+.left-nav a {
+  text-decoration: none;
+  color: #274c77;
+  display: flex;
+  align-items: center;
+  align-items: center; /* 텍스트를 수직 중앙에 위치 */
+  justify-content: center; /* 텍스트를 수평 중앙에 위치 */
+  box-sizing: border-box; /* box model을 border-box로 설정 */
+  width: 416px; /* 링크의 너비 */
+  height: 64px; /* 링크의 높이 */
+  padding: 16px 32px 16px 80px;
+  width: 100%; /* 링크의 너비를 네비게이션 바에 맞춤 */
+}
+
+.nav-text {
+  font-family: "Noto Sans", sans-serif; /* 폰트 서체 */
+  height: 32px; /* 텍스트의 높이 */
+  width: 240px; /* 텍스트의 너비 */
+  font-weight: 500; /* medium */
+  font-size: 24px;
+  display: flex;
+  align-items: center; /* 텍스트를 세로 중앙 정렬 */
+  justify-content: flex-start; /* 텍스트를 좌측 정렬 */
+}
+
+.active {
+  background-color: #274c77; /* Active color */
+  color: white !important;
+  border-radius: 0 20px 20px 0; /* 우측 상단과 하단 모서리에만 둥근 모서리 적용 */
+}
+
+.inactive {
+  background-color: transparent;
+}
+
+.icon {
+  width: 32px;
+  height: 32px;
+  margin-right: 32px;
+}
+
+@media (max-width: 1024px) {
+  .left-nav {
+    width: 260px; /* 네비게이션 바의 너비 변경 */
+    height: 176px; /* 네비게이션 바의 높이 변경 */
+  }
+
+  .left-nav a {
+    width: 260px; /* 링크의 너비 변경 */
+    height: 48px; /* 링크의 높이 변경 */
+    padding: 12px 24px; /* 상하 12px, 좌우 24px의 패딩 적용 */
+  }
+
+  .icon {
+    width: 24px; /* 아이콘의 너비 변경 */
+    height: 24px; /* 아이콘의 높이 변경 */
+    margin-right: 16px; /* 아이콘과 텍스트 사이의 간격 조정 */
+  }
+
+  .nav-text {
+    width: 172px; /* nav-text의 너비 조정 */
+    height: 24px; /* nav-text의 높이 조정 */
+    font-size: 17.5px; /* 폰트 사이즈 조정 */
+  }
+}
