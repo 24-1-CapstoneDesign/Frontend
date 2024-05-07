@@ -1,11 +1,20 @@
-import React from "react";
-import "../styles/NavBar.css"; // CSS 파일 import
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+
+import "../styles/navbar.css"; // CSS 파일 import
+
 import logo from "../icons/logo.png";
 import logout from "../icons/logout.png";
 import menu from "../icons/menu.png";
-import { Link } from "react-router-dom";
+import cancel from "../icons/cancel.png";
 
 const NavBar = () => {
+  const [isOpen, setIsOpen] = useState(false); // 메뉴의 초기값을 false로 설정
+
+  const toggleMenu = () => {
+    setIsOpen(!isOpen); // on,off 개념 boolean
+  };
+
   return (
     <header class="header">
       <div class="logo">
@@ -28,10 +37,8 @@ const NavBar = () => {
         </p>
       </div>
 
-      <div class="menu">
-        <Link to="/">
-          <img src={menu} alt="menu" />
-        </Link>
+      <div className="mobile">
+        <img src={isOpen ? cancel : menu} onClick={toggleMenu} />
       </div>
     </header>
   );
