@@ -1,11 +1,11 @@
 import React from "react";
-import "./style.css"; // CSS 파일 import
-import logo from "./logo.png";
-import logout from "./logout.png";
-import menu from "./menu.png";
+import "../styles/NavBar.css"; // CSS 파일 import
+import logo from "../icons/logo.png";
+import logout from "../icons/logout.png";
+import menu from "../icons/menu.png";
 import { Link } from "react-router-dom";
 
-const NavAfterBar = () => {
+const NavBar = () => {
   return (
     <header class="header">
       <div class="logo">
@@ -37,4 +37,4 @@ const NavAfterBar = () => {
   );
 };
 
-export default NavAfterBar;
+export default NavBar;
