@@ -54,7 +54,7 @@
 
 .greeting-bold {
   display: flex;
-  font-weight: 700;
+  font-weight: 900;
   font-size: 24px;
   margin-right: 36px;
 }
@@ -65,7 +65,7 @@
   align-items: center;
 }
 
-.menu {
+.mobile {
   display: none;
 }
 
@@ -79,7 +79,7 @@
     height: 40px;
   }
 
-  .menu {
+  .mobile {
     margin-right: 20px;
     padding: 20px;
     align-items: center;
@@ -112,3 +112,5 @@
     align-items: center;
   }
 }
+
+/* 파일 명 바꿨어요. NavBar.css -> navbar.css */

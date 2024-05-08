@@ -1,11 +1,20 @@
-import React from "react";
-import "./style.css"; // CSS 파일 import
-import logo from "./logo.png";
-import logout from "./logout.png";
-import menu from "./menu.png";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
-const NavAfterBar = () => {
+import "../styles/navbar.css"; // CSS 파일 import
+
+import logo from "../icons/logo.png";
+import logout from "../icons/logout.png";
+import menu from "../icons/menu.png";
+import cancel from "../icons/cancel.png";
+
+const NavBar = () => {
+  const [isOpen, setIsOpen] = useState(false); // 메뉴의 초기값을 false로 설정
+
+  const toggleMenu = () => {
+    setIsOpen(!isOpen); // on,off 개념 boolean
+  };
+
   return (
     <header class="header">
       <div class="logo">
@@ -28,13 +37,11 @@ const NavAfterBar = () => {
         </p>
       </div>
 
-      <div class="menu">
-        <Link to="/">
-          <img src={menu} alt="menu" />
-        </Link>
+      <div className="mobile">
+        <img src={isOpen ? cancel : menu} onClick={toggleMenu} />
       </div>
     </header>
   );
 };
 
-export default NavAfterBar;
+export default NavBar;
