@@ -23,38 +23,44 @@ const LoginModal = () => {
   };
 
   return (
-    <div className="container">
-      <div className="box">
-        <div className="input-container">
+    <div className="id-container">
+      <div className="id-box">
+        <div className="id-input-container">
           <input
-            className="input_text"
+            className="id-input_text"
             type="text"
             placeholder="ID"
             value={id}
             onChange={onChangeID}
           />
           {id && (
-            <button onClick={() => clearInput("id")} className="clear-button">
-              <img src={cancel} className="login-cancel" />
+            <button
+              onClick={() => clearInput("id")}
+              className="id-clear-button"
+            >
+              <img src={cancel} className="id-login-cancel" />
             </button>
           )}
         </div>
-        <div className="input-container">
+        <div className="id-input-container">
           <input
-            className="input_text"
+            className="id-input_text"
             type="password"
             placeholder="PW"
             value={pw}
             onChange={onChangePW}
           />
           {pw && (
-            <button onClick={() => clearInput("pw")} className="clear-button">
-              <img src={cancel} className="login-cancel" />
+            <button
+              onClick={() => clearInput("pw")}
+              className="id-clear-button"
+            >
+              <img src={cancel} className="id-login-cancel" />
             </button>
           )}
         </div>
-        <div className="button-container">
-          <button className="login-button">LOGIN</button>
+        <div className="id-button-container">
+          <button className="id-login-button">LOGIN</button>
         </div>
       </div>
     </div>

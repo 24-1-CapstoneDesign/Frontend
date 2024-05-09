@@ -10,6 +10,10 @@ const PasswordModal = () => {
   const [new_pw, setnewPW] = useState("");
   const [check_pw, setcheckPW] = useState("");
 
+  const [hideOriPW, setHideOriPW] = useState(true);
+  const [hideNewPW, setHideNewPW] = useState(true);
+  const [hideCheckPW, setHideCheckPW] = useState(true);
+
   const onChangeOriPW = (event) => {
     setoriPW(event.target.value);
   };
@@ -21,73 +25,72 @@ const PasswordModal = () => {
     setcheckPW(event.target.value);
   };
 
-  const clearInput = (type) => {
-    if (type === "ori_pw") {
-      setoriPW("");
-    } else if (type === "new_pw") {
-      setnewPW("");
-    } else if (type === "check_pw") {
-      setcheckPW("");
-    }
-  };
-
   return (
-    <div className="container">
-      <div className="pwbox">
-        <div className="password-bold">비밀 번호 변경</div>
-        <div className="input-container">
+    <div className="pw-container">
+      <div className="pw-box">
+        <div className="password-bold">비밀번호 변경</div>
+        <div className="pw-input-container">
           <input
-            className="input_text"
-            type="text"
+            className="pw-input_text"
+            type={hideOriPW ? "text" : "password"}
             placeholder="기존 비밀번호"
             value={ori_pw}
             onChange={onChangeOriPW}
           />
           {ori_pw && (
             <button
-              onClick={() => clearInput("ori_pw")}
-              className="clear-button"
+              onClick={() => setHideOriPW(!hideOriPW)}
+              className="pw-clear-button"
             >
-              <img src={eye_open} className="login-cancel" />
+              <img
+                src={hideOriPW ? eye_open : eye_close}
+                className="pw-cancel"
+              />
             </button>
           )}
         </div>
-        <div className="input-container">
+        <div className="pw-input-container">
           <input
-            className="input_text"
-            type="password"
+            className="pw-input_text"
+            type={hideNewPW ? "text" : "password"}
             placeholder="변경할 비밀번호"
             value={new_pw}
             onChange={onChangeNewPW}
           />
           {new_pw && (
             <button
-              onClick={() => clearInput("new_pw")}
-              className="clear-button"
+              onClick={() => setHideNewPW(!hideNewPW)}
+              className="pw-clear-button"
             >
-              <img src={eye_open} className="login-cancel" />
+              <img
+                src={hideNewPW ? eye_open : eye_close}
+                className="pw-cancel"
+              />
             </button>
           )}
         </div>
-        <div className="input-container">
+        <div className="pw-input-container">
           <input
-            className="input_text"
-            type="password"
+            className="pw-input_text"
+            type={hideCheckPW ? "text" : "password"}
             placeholder="비밀번호 확인"
             value={check_pw}
             onChange={onChangeCheckPW}
           />
           {check_pw && (
             <button
-              onClick={() => clearInput("check_pw")}
-              className="clear-button"
+              onClick={() => setHideCheckPW(!hideCheckPW)}
+              className="pw-clear-button"
             >
-              <img src={eye_open} className="login-cancel" />
+              <img
+                src={hideCheckPW ? eye_open : eye_close}
+                className="pw-cancel"
+              />
             </button>
           )}
         </div>
-        <div className="button-container">
-          <button className="login-button">확인</button>
+        <div className="pw-confirm-container">
+          <button className="pw-confirm-button">확 인</button>
         </div>
       </div>
     </div>

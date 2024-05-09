@@ -1,23 +1,26 @@
-.container {
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans:wght@500&display=swap"); /* Noto Sans font 가져옴 */
+
+.id-container {
   width: 328px;
-  height: 260px;
   position: relative;
 }
 
-.box {
+.id-box {
   width: 328px;
   height: 260px;
-  position: absolute;
   left: -1px;
   top: -1px;
   border-radius: 12px;
   background: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
 }
 
-.input-container {
+.id-input-container {
   width: 280px;
   height: 48px;
-  position: absolute;
   left: 24px;
   background: #fafafa;
   border-radius: 4px;
@@ -26,20 +29,13 @@
   align-items: center;
 }
 
-.input-container:first-of-type {
-  top: 40px;
-}
-
-.input-container:nth-of-type(2) {
-  top: 100px;
-}
-
-.input_text {
+.id-input_text {
   position: relative;
   width: 100%;
   height: 100%;
   box-sizing: border-box;
   z-index: 4;
+  font-family: "Noto Sans", sans-serif; /* 폰트 서체 */
   font-size: 16px;
   font-weight: 500;
   color: black;
@@ -49,23 +45,23 @@
   background: 0 0;
 }
 
-.input-container :focus {
+.id-input-container :focus {
   outline: 1px solid #e8a44b;
 }
 
-.button-container {
+.id-button-container {
   width: 280px;
   height: 48px;
-  position: absolute;
   left: 24px;
   top: 172px;
 }
 
-.login-button {
+.id-login-button {
   width: 280px;
   height: 48px;
   background: #213e57;
   border-radius: 4px;
+  font-family: "Noto Sans", sans-serif; /* 폰트 서체 */
   font-size: 16px;
   font-weight: 500;
   text-align: center;
@@ -73,7 +69,7 @@
   cursor: pointer;
 }
 
-.clear-button {
+.id-clear-button {
   background: none;
   border: none;
   cursor: pointer;
