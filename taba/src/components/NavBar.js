@@ -8,6 +8,8 @@ import logout from "../icons/logout.png";
 import menu from "../icons/menu.png";
 import cancel from "../icons/cancel.png";
 
+import PasswordModal from "./PasswordModal";
+
 const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false); // 메뉴의 초기값을 false로 설정
 
@@ -15,32 +17,55 @@ const NavBar = () => {
     setIsOpen(!isOpen); // on,off 개념 boolean
   };
 
+  const [PWOpen, setPWOpen] = useState(false);
+
+  const openModalHandler = () => {
+    setPWOpen(!PWOpen);
+  };
+
   return (
-    <header class="header">
-      <div class="logo">
-        <img src={logo} alt="로고" />
-      </div>
+    <>
+      <header class="header">
+        <div class="logo">
+          <img src={logo} alt="로고" />
+        </div>
 
-      <div class="right">
-        <p class="password-wrapper">
-          <Link to="/" class="password-text">
-            Password
-          </Link>
-        </p>
+        <div class="right">
+          <p class="password-wrapper">
+            <button
+              className="header-password-text"
+              onClick={() => openModalHandler(true)}
+            >
+              Password
+            </button>
+          </p>
 
-        <p class="greeting-normal">Hello</p>
-        <p class="greeting-bold"> bomin</p>
-        <p>
-          <Link to="/" class="logout">
-            <img src={logout} />
-          </Link>
-        </p>
-      </div>
+          <p class="greeting-normal">Hello</p>
+          <p class="greeting-bold"> bomin</p>
+          <p>
+            <Link to="/" class="logout">
+              <img src={logout} />
+            </Link>
+          </p>
+        </div>
 
-      <div className="mobile">
-        <img src={isOpen ? cancel : menu} onClick={toggleMenu} />
+        <div className="mobile">
+          <img src={isOpen ? cancel : menu} onClick={toggleMenu} />
+        </div>
+      </header>
+
+      <div className="PWModalContainer">
+        {PWOpen && (
+          <div>
+            <div className="PWModalBackdrop" onClick={openModalHandler}>
+              <div onClick={(e) => e.stopPropagation()}>
+                <PasswordModal></PasswordModal>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
-    </header>
+    </>
   );
 };
 
