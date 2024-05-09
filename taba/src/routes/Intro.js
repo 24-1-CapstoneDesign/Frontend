@@ -1,13 +1,17 @@
 import { Link } from "react-router-dom";
+import LoginBar from "../components/LoginBar";
 
 export default function Intro() {
   return (
     <div>
-      <h1>타바 소개창</h1>
-      <p>로그인 및 타바 소개창</p>
+      <div>
+        <LoginBar></LoginBar>
+      </div>
+
+      <h1>TABA? 타봐!</h1>
 
       <h2>
-        <Link to="/main">메인 화면으로 로그인하기</Link>
+        <Link to="/main">Get started</Link>
       </h2>
     </div>
   );
