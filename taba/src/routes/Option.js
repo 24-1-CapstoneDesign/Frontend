@@ -1,11 +1,19 @@
 import LeftNav from "../components/LeftNav";
+import Table from "../components/Table";
+import NavBar from "../components/NavBar";
 
 export default function Option() {
   return (
     <div>
-      <h1>사용자관리 화면</h1>
-      <p>타바 사용자관리 화면</p>
-      <LeftNav />
+      <div>
+        <NavBar />
+      </div>
+      <div>
+        <LeftNav />
+      </div>
+      <div>
+        <Table />
+      </div>
     </div>
   );
 }
