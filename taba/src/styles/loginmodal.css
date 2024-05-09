@@ -1,4 +1,3 @@
-/* LoginBar.css */
 .container {
   width: 328px;
   height: 260px;
@@ -35,15 +34,23 @@
   top: 100px;
 }
 
-.label {
-  flex-grow: 0;
-  flex-shrink: 0;
-  opacity: 0.4;
+.input_text {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  z-index: 4;
   font-size: 16px;
   font-weight: 500;
-  text-align: left;
-  color: #000;
+  color: black;
+  caret-color: #e8a44b;
   margin-left: 16px;
+  border: none;
+  background: 0 0;
+}
+
+.input-container :focus {
+  outline: 1px solid #e8a44b;
 }
 
 .button-container {
@@ -63,4 +70,11 @@
   font-weight: 500;
   text-align: center;
   color: #fff;
+  cursor: pointer;
+}
+
+.clear-button {
+  background: none;
+  border: none;
+  cursor: pointer;
 }
