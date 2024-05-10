@@ -12,6 +12,7 @@ const LoginBar = () => {
   const openModalHandler = () => {
     setIsOpen(!isOpen);
   };
+
   return (
     <>
       <div className="header">
@@ -26,17 +27,18 @@ const LoginBar = () => {
             로그인
           </button>
         </div>
-      </div>
-      <div className="ModalContainer">
-        {isOpen && (
-          <div>
-            <div className="ModalBackdrop" onClick={openModalHandler}>
-              <div onClick={(e) => e.stopPropagation()}>
-                <LoginModal></LoginModal>
+
+        <div className="ModalContainer">
+          {isOpen && (
+            <div>
+              <div className="ModalBackdrop" onClick={openModalHandler}>
+                <div onClick={(e) => e.stopPropagation()}>
+                  <LoginModal></LoginModal>
+                </div>
               </div>
             </div>
-          </div>
-        )}
+          )}
+        </div>
       </div>
     </>
   );
