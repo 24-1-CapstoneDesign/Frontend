@@ -62,6 +62,7 @@
   align-items: center;
   height: 100%;
 }
+
 .ModalBackdrop {
   position: fixed;
   top: 0;
@@ -72,6 +73,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  position: absolute;
+  z-index: 1000;
 }
 
 @media screen and (max-width: 360px) {
