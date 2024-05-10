@@ -1,0 +1,76 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans:wght@500&display=swap"); /* Noto Sans font 가져옴 */
+
+.main-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  z-index: 0;
+  overflow: hidden;
+  background: #e7ecef;
+}
+
+.main-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 600px;
+  height: 360px;
+}
+
+.main-title {
+  font-family: "Noto Sans", sans-serif; /* 폰트 서체 */
+  font-size: 90px; /*크기 줄임*/
+  font-weight: 700;
+  color: #262626;
+}
+
+.main-button {
+  display: flex;
+  width: 464px;
+  height: 106px;
+  border-radius: 32px;
+  justify-content: center;
+  align-items: center;
+  background: #274c77;
+}
+
+.main-button-title {
+  font-family: "Noto Sans", sans-serif; /* 폰트 서체 */
+  font-size: 59px;
+  font-weight: 600;
+  text-decoration: none; /* 밑줄 제거 */
+  color: #fff;
+  text-align: center;
+}
+
+@media screen and (max-width: 360px) {
+  .main-title {
+    font-family: "Noto Sans", sans-serif; /* 폰트 서체 */
+    font-size: 48px; /*크기 줄임*/
+    font-weight: 700;
+    color: #262626;
+  }
+
+  .main-button {
+    display: flex;
+    width: 232px;
+    height: 56px;
+    border-radius: 32px;
+    justify-content: center;
+    align-items: center;
+    background: #274c77;
+  }
+
+  .main-button-title {
+    font-family: "Noto Sans", sans-serif; /* 폰트 서체 */
+    font-size: 24px;
+    font-weight: 600;
+    text-decoration: none; /* 밑줄 제거 */
+    color: #fff;
+    text-align: center;
+  }
+}
