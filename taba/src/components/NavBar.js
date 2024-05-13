@@ -55,7 +55,11 @@ const NavBar = () => {
         </div>
 
         <div className="mobile">
-          <img src={isOpen ? cancel : menu} onClick={toggleMenu} />
+          <img
+            src={isOpen ? cancel : menu}
+            onClick={toggleMenu}
+            style={{ cursor: "pointer" }}
+          />
         </div>
       </header>
 
@@ -77,80 +81,71 @@ const NavBar = () => {
             <p className="mobile-user-text"> bomin</p>
           </div>
           <div className="mobile-menu">
-            <div className="mobile-choice">
-              <Link
-                to="/main"
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  textDecoration: "none",
-                  color: "inherit",
-                }}
-              >
-                <img src={home} className="mobile-icon" />
-                <p className="mobile-menu-text">HOME</p>
-              </Link>
-            </div>
+            <Link
+              to="/main"
+              style={{
+                display: "flex",
+                alignItems: "center",
+                textDecoration: "none",
+                color: "inherit",
+              }}
+              className="mobile-choice"
+            >
+              <img src={home} className="mobile-icon" />
+              <p className="mobile-menu-text">HOME</p>
+            </Link>
+
+            <Link
+              to="/statics"
+              style={{
+                display: "flex",
+                alignItems: "center",
+                textDecoration: "none",
+                color: "inherit",
+              }}
+              className="mobile-choice"
+            >
+              <img src={data} className="mobile-icon" />
+              <p className="mobile-menu-text">STATISTIC</p>
+            </Link>
+
+            <Link
+              to="/option"
+              style={{
+                display: "flex",
+                alignItems: "center",
+                textDecoration: "none",
+                color: "inherit",
+              }}
+              className="mobile-choice"
+            >
+              <img src={mypage} className="mobile-icon" />
+              <p className="mobile-menu-text">USER MANAGEMENT</p>
+            </Link>
 
             <div className="mobile-choice">
-              <Link
-                to="/statics"
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  textDecoration: "none",
-                  color: "inherit",
-                }}
-              >
-                <img src={data} className="mobile-icon" />
-                <p className="mobile-menu-text">STATISTIC</p>
-              </Link>
-            </div>
-
-            <div className="mobile-choice">
-              <Link
-                to="/option"
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  textDecoration: "none",
-                  color: "inherit",
-                }}
-              >
-                <img src={mypage} className="mobile-icon" />
-                <p className="mobile-menu-text">USER MANAGEMENT</p>
-              </Link>
-            </div>
-
-            <div className="mobile-choice">
-              <Link
-                to="/"
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  textDecoration: "none",
-                  color: "inherit",
-                }}
+              <button
+                onClick={() => openModalHandler(true)}
+                className="mobile-password-button"
               >
                 <img src={change} className="mobile-icon" />
                 <p className="mobile-menu-text">CHANGE PASSWORD</p>
-              </Link>
+              </button>
             </div>
 
-            <div className="mobile-choice">
-              <Link
-                to="/"
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  textDecoration: "none",
-                  color: "inherit",
-                }}
-              >
-                <img src={logout_menu} className="mobile-icon" />
-                <p className="mobile-menu-text">LOGOUT</p>
-              </Link>
-            </div>
+            <Link
+              to="/"
+              style={{
+                display: "flex",
+                alignItems: "center",
+                textDecoration: "none",
+                color: "inherit",
+              }}
+              className="mobile-choice"
+            >
+              <img src={logout_menu} className="mobile-icon" />
+              <p className="mobile-menu-text">LOGOUT</p>
+            </Link>
           </div>
         </div>
       )}
