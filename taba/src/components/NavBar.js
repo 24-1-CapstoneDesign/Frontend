@@ -7,6 +7,11 @@ import logo from "../icons/logo.png";
 import logout from "../icons/logout.png";
 import menu from "../icons/menu.png";
 import cancel from "../icons/cancel.png";
+import logout_menu from "../icons/logout_menu.png";
+import change from "../icons/change.png";
+import home from "../icons/home.png";
+import mypage from "../icons/mypage.png";
+import data from "../icons/data.png";
 
 import PasswordModal from "./PasswordModal";
 
@@ -50,7 +55,11 @@ const NavBar = () => {
         </div>
 
         <div className="mobile">
-          <img src={isOpen ? cancel : menu} onClick={toggleMenu} />
+          <img
+            src={isOpen ? cancel : menu}
+            onClick={toggleMenu}
+            style={{ cursor: "pointer" }}
+          />
         </div>
       </header>
 
@@ -65,6 +74,81 @@ const NavBar = () => {
           </div>
         )}
       </div>
+      {isOpen && (
+        <div className="mobile-container">
+          <div className="mobile-box">
+            <p className="mobile-greeting-text">Hello</p>
+            <p className="mobile-user-text"> bomin</p>
+          </div>
+          <div className="mobile-menu">
+            <Link
+              to="/main"
+              style={{
+                display: "flex",
+                alignItems: "center",
+                textDecoration: "none",
+                color: "inherit",
+              }}
+              className="mobile-choice"
+            >
+              <img src={home} className="mobile-icon" />
+              <p className="mobile-menu-text">HOME</p>
+            </Link>
+
+            <Link
+              to="/statics"
+              style={{
+                display: "flex",
+                alignItems: "center",
+                textDecoration: "none",
+                color: "inherit",
+              }}
+              className="mobile-choice"
+            >
+              <img src={data} className="mobile-icon" />
+              <p className="mobile-menu-text">STATISTIC</p>
+            </Link>
+
+            <Link
+              to="/option"
+              style={{
+                display: "flex",
+                alignItems: "center",
+                textDecoration: "none",
+                color: "inherit",
+              }}
+              className="mobile-choice"
+            >
+              <img src={mypage} className="mobile-icon" />
+              <p className="mobile-menu-text">USER MANAGEMENT</p>
+            </Link>
+
+            <div className="mobile-choice">
+              <button
+                onClick={() => openModalHandler(true)}
+                className="mobile-password-button"
+              >
+                <img src={change} className="mobile-icon" />
+                <p className="mobile-menu-text">CHANGE PASSWORD</p>
+              </button>
+            </div>
+
+            <Link
+              to="/"
+              style={{
+                display: "flex",
+                alignItems: "center",
+                textDecoration: "none",
+                color: "inherit",
+              }}
+              className="mobile-choice"
+            >
+              <img src={logout_menu} className="mobile-icon" />
+              <p className="mobile-menu-text">LOGOUT</p>
+            </Link>
+          </div>
+        </div>
+      )}
     </>
   );
 };

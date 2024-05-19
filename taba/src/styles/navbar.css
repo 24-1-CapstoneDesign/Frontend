@@ -1,6 +1,8 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans:wght@500&display=swap"); /* Noto Sans font 가져옴 */
+
 .header {
-  height: 96px;
   display: flex;
+  height: 96px;
   justify-content: space-between;
   background-color: #f8f8fb;
   border-bottom-left-radius: 24px;
@@ -28,32 +30,37 @@
   display: flex;
   justify-content: center; /* 가로축 가운데 정렬 */
   align-items: center; /* 세로축 가운데 정렬 */
-  overflow: hidden;
   padding: 1px 12px; /* 필요에 따라 조정 */
   border-radius: 12px;
-  border: 1px solid #213e57;
+  border: 1.5px solid #213e57;
   margin-right: 36px;
-  width: 150px;
-  height: 50px;
+  width: 180px;
+  height: 48px;
 }
 
-.password-text {
-  display: flex;
+.header-password-text:hover {
+  color: #000;
+}
+
+.header-password-text {
+  font-family: "Noto Sans", sans-serif; /* 폰트 서체 */
   font-size: 24px;
-  font-weight: 500;
+  font-weight: 600;
+  background: none;
   text-align: center;
   text-decoration: none; /* 밑줄 제거 */
-  color: inherit; /* 링크 색상을 텍스트와 동일하게 설정 */
-  color: #141414;
+  color: #595959;
+  border: none;
+  cursor: pointer;
 }
 
 .greeting-normal {
-  display: flex;
+  font-family: "Noto Sans", sans-serif; /* 폰트 서체 */
   font-size: 24px;
 }
 
 .greeting-bold {
-  display: flex;
+  font-family: "Noto Sans", sans-serif; /* 폰트 서체 */
   font-weight: 900;
   font-size: 24px;
   margin-right: 36px;
@@ -65,7 +72,15 @@
   align-items: center;
 }
 
-.mobile {
+.mobile,
+.mobile-container,
+.mobile-box,
+.mobile-choice,
+.mobile-greeting-text,
+.mobile-icon,
+.mobile-menu,
+.mobile-menu-text,
+.mobile-password-button {
   display: none;
 }
 
@@ -74,6 +89,7 @@
   justify-content: center;
   align-items: center;
   height: 100%;
+  z-index: 11; /* 다른 요소들 위에 오도록 설정 */
 }
 .PWModalBackdrop {
   position: fixed;
@@ -85,13 +101,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 12; /* 다른 요소들 위에 오도록 설정 */
 }
 
 @media screen and (max-width: 360px) {
   .logo {
     display: flex;
-    flex: none;
-    padding: 24px 24px;
     align-items: center;
     width: 120px;
     height: 40px;
@@ -102,6 +117,76 @@
     padding: 20px;
     align-items: center;
     display: block;
+  }
+
+  .mobile-container {
+    display: flex;
+    position: absolute;
+    backdrop-filter: blur(5px);
+    background: rgba(255, 255, 255, 0.8);
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    width: 100%;
+    z-index: 10; /* 다른 요소들 위에 오도록 설정 */
+  }
+
+  .mobile-box {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    background-color: #14314a;
+    width: 100%;
+  }
+
+  .mobile-greeting-text {
+    display: block;
+    color: white;
+    font-size: 34px;
+    font-family: "Noto Sans", sans-serif; /* 폰트 서체 */
+  }
+
+  .mobile-user-text {
+    display: block;
+    color: white;
+    font-size: 34px;
+    font-family: "Noto Sans", sans-serif; /* 폰트 서체 */
+    font-weight: 800;
+  }
+
+  .mobile-menu {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .mobile-choice {
+    display: flex;
+    align-items: center;
+    height: 64px;
+  }
+
+  .mobile-menu-text {
+    display: block;
+    font-weight: 500;
+    font-size: 17.5px;
+    font-family: "Noto Sans", sans-serif; /* 폰트 서체 */
+  }
+
+  .mobile-icon {
+    display: block;
+    height: 25px;
+    width: 25px;
+    margin-left: 24px;
+    margin-right: 20px;
+  }
+
+  .mobile-password-button {
+    padding: 0px;
+    display: flex;
+    border: none;
+    background: none;
+    align-items: center;
+    cursor: pointer;
   }
 
   /* 로고를 제외한 다른 요소들 숨기기 */
