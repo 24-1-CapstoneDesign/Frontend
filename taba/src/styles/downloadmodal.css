@@ -1,0 +1,74 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans:wght@500&display=swap"); /* Noto Sans font 가져옴 */
+
+* {
+  box-sizing: border-box; /* 모든 요소에 적용 */
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* 모달이 최상위에 표시되도록 */
+}
+
+.modal-content {
+  background: white;
+  padding: 28px 24px; /* 변경된 padding */
+  width: 328px; /* 너비 설정 */
+  height: 240px; /* 높이 설정 */
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* 왼쪽 정렬 */
+  font-family: "Noto Sans", sans-serif; /* 폰트 서체 */
+}
+
+.modal-content h2 {
+  margin: 0; /* margin 제거 */
+  font-size: 20px; /* 글자 크기 */
+  font-weight: 700; /* 글자 두께 */
+}
+
+.modal-content label {
+  display: flex;
+  align-items: center;
+  width: 280px; /* 너비 설정 */
+  height: 40px; /* 높이 설정 */
+  font-size: 17.5px; /* 글자 크기 */
+  font-weight: 500; /* 글자 두께 */
+  margin-top: 12px; /* 상단 간격 */
+}
+
+.modal-content input[type="checkbox"] {
+  width: 24px; /* 체크박스 너비 */
+  height: 24px; /* 체크박스 높이 */
+  margin-right: 8px; /* 오른쪽 여백 */
+}
+
+.download-button {
+  width: 280px; /* 버튼 너비 */
+  height: 40px; /* 버튼 높이 */
+  background-color: #274c77; /* 버튼 배경색 */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 17.5px; /* 글자 크기 */
+  font-weight: 500; /* 글자 두께 */
+  margin-top: 20px; /* 상단 간격 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 96px; /* 패딩 설정 */
+}
+
+.download-button:hover {
+  background-color: #1f3b5a; /* 호버 시 버튼 색상 */
+}
