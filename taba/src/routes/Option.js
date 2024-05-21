@@ -1,5 +1,5 @@
 import LeftNav from "../components/LeftNav";
-import Table from "../components/Table";
+import UserTable from "../components/UserTable";
 import NavBar from "../components/NavBar";
 
 export default function Option() {
@@ -12,7 +12,7 @@ export default function Option() {
         <LeftNav />
       </div>
       <div>
-        <Table />
+        <UserTable />
       </div>
     </div>
   );

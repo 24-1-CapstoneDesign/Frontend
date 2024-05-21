@@ -1,6 +1,7 @@
 import LeftNav from "../components/LeftNav";
 import NavBar from "../components/NavBar";
 import Calendar from "../components/Calendar";
+import Table from "../components/Table";
 
 export default function Statics() {
   return (
@@ -13,6 +14,9 @@ export default function Statics() {
       </div>
       <div>
         <Calendar />
+      </div>
+      <div>
+        <Table />
       </div>
     </div>
   );
