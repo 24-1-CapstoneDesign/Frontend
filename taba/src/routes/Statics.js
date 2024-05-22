@@ -1,7 +1,9 @@
+import React from "react";
 import LeftNav from "../components/LeftNav";
 import NavBar from "../components/NavBar";
 import Calendar from "../components/Calendar";
 import Table from "../components/Table";
+import StaticsGraph from "../components/StaticsGraph";
 
 export default function Statics() {
   return (
@@ -17,6 +19,9 @@ export default function Statics() {
       </div>
       <div>
         <Table />
+      </div>
+      <div>
+        <StaticsGraph />
       </div>
     </div>
   );
