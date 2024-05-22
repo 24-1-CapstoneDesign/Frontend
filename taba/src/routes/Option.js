@@ -1,6 +1,7 @@
 import LeftNav from "../components/LeftNav";
 import UserTable from "../components/UserTable";
 import NavBar from "../components/NavBar";
+import OptionGraph from "../components/OptionGraph";
 
 export default function Option() {
   return (
@@ -13,6 +14,9 @@ export default function Option() {
       </div>
       <div>
         <UserTable />
+      </div>
+      <div>
+        <OptionGraph />
       </div>
     </div>
   );
