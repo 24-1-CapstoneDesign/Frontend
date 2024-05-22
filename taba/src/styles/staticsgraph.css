@@ -1,0 +1,162 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans:wght@500&display=swap"); /* Noto Sans font 가져옴 */
+
+* {
+  box-sizing: border-box; /* 모든 요소에 적용 */
+}
+
+/* staticsgraph.css */
+.stat-container {
+  font-family: "Noto Sans", sans-serif; /* 폰트 서체 */
+  display: flex;
+  flex-wrap: wrap; /* 요소들을 한 줄에 다 배치하지 않고 필요할 때 줄 바꿈 */
+  justify-content: space-between; /* 요소들 사이 간격 설정 */
+  width: 896px;
+  max-width: 100%; /* 컨테이너의 최대 너비 설정 */
+  overflow: hidden; /* 내용이 삐져나가지 않도록 설정 */
+}
+
+.stat-box {
+  width: 280px;
+  height: 396px;
+  background-color: #f8f8f8;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start; /* 상단에서부터 정렬 시작 */
+  box-shadow: 0px 24px 48px -8px rgba(39, 76, 119, 0.16);
+  border-radius: 8px;
+  margin-bottom: 28px; /* stat-box 사이 간격 설정 */
+  margin-right: 28px; /* 각 박스 사이 간격 설정 */
+}
+
+.stat-box:nth-child(3n) {
+  margin-right: 0; /* 각 행의 마지막 박스는 우측 마진 제거 */
+}
+
+.stat-box h2 {
+  font-size: 23.5px;
+  font-weight: 600;
+  width: 224px;
+  height: 32px;
+  margin: 28px 0 16px 0; /* 상단, 좌우와 28px, 하단과 16px 간격 */
+}
+
+.bar-chart-container {
+  width: 100%;
+  height: 60%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px; /* 그래프와 목록 사이 간격 */
+}
+
+.pie-chart-container {
+  width: 100%;
+  height: 60%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px; /* 그래프와 목록 사이 간격 */
+}
+
+.stat-list {
+  list-style-type: none;
+  padding: 0;
+  display: flex;
+  gap: 8px; /* 각 요소 사이의 간격을 8px로 설정 */
+  width: 100%;
+  justify-content: center;
+  margin-top: 4px; /* 목록 상단 간격 */
+}
+
+.stat-list-item {
+  display: flex;
+  align-items: center;
+}
+
+.stat-color-box {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  margin-right: 5px;
+}
+
+.stat-ordered-list {
+  list-style-type: none;
+  padding: 0;
+  width: 224px;
+  height: 276px;
+  margin-left: 28px; /* 좌우 간격 설정 */
+  margin-right: 28px;
+  margin-bottom: 36px; /* 하단 간격 설정 */
+  margin-top: 0px;
+}
+
+.stat-ordered-list-item {
+  display: flex;
+  align-items: center;
+  width: 224px;
+  height: 36px;
+  margin-bottom: 12px; /* 각 요소 간의 간격 설정 */
+}
+
+.location-number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  background-color: #213e57;
+  color: white;
+  border-radius: 50%;
+  margin-right: 8px; /* 텍스트와의 간격 설정 */
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.location-text {
+  text-align: left;
+  font-size: 15px;
+  font-weight: 600;
+  color: #434343;
+}
+
+.stat-bar-labels {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 4px;
+}
+
+.stat-bar-label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+@media screen and (max-width: 1024px) and (min-width: 361px) {
+  .stat-container {
+    justify-content: flex-start;
+  }
+
+  .stat-box {
+    margin-right: 28px;
+  }
+
+  .stat-box:nth-child(3n) {
+    margin-right: 0;
+  }
+}
+
+@media screen and (max-width: 360px) {
+  .stat-container {
+    justify-content: center;
+  }
+
+  .stat-box {
+    width: 100%; /* 화면 너비가 360px 이하일 때 세로 배치되도록 변경 */
+    max-width: 280px; /* 너비 제한을 유지하면서 화면이 너무 작아지지 않도록 설정 */
+    margin-right: 0; /* 세로 배치 시 우측 마진 제거 */
+  }
+}
