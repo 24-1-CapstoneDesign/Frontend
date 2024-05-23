@@ -182,11 +182,15 @@
   /* 페이지네이션을 좌측으로 32px 떨어진 위치에 배치 */
   .pagination {
     justify-content: flex-start; /* 좌측 정렬 */
+    width: 832px;
+    margin-top: 0;
   }
 
   /* 테이블 너비 조정 */
   .table-container {
     min-width: 832px; /* 최소 너비 설정 */
+    padding-right: 32px; /* 우측 패딩을 32px로 설정 */
+    margin-bottom: 16px;
   }
 
   /* 버튼과 테이블 간의 상단 마진 조정 */
