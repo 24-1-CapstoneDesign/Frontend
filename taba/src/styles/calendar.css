@@ -31,12 +31,14 @@
   flex-direction: row; /* 가로 정렬 */
 }
 
-.selector-with-icon {
-  position: relative;
-  display: flex;
-  align-items: center;
-  width: 96px; /* 너비 설정 */
-  height: 32px; /* 높이 설정 */
+.selector-with-icon img {
+  position: absolute;
+  right: 8px;
+  top: 50%; /* 상하 중심 조정 */
+  transform: translateY(-50%); /* 중심 조정 */
+  z-index: 2; /* z-index를 추가하여 겹침 방지 */
+  height: 32px;
+  pointer-events: none; /* 클릭 이벤트 방지 */
 }
 
 .selector-with-icon + .selector-with-icon {
@@ -238,5 +240,3 @@ select {
     display: none; /* week-days와 days-grid를 숨김 */
   }
 }
-
-/* branch가 이상해서 push 하기 위해 작성한 주석 */
