@@ -22,9 +22,9 @@ function Calendar() {
 
   const renderDays = () => {
     const days = [];
-    const firstDay = new Date(currentYear, currentMonth - 1, 1).getDay(); // 첫 번째 날짜의 요일 계산
+    const firstDay = new Date(currentYear, currentMonth - 1, 1).getDay();
     for (let i = 0; i < firstDay; i++) {
-      days.push(<div key={`empty-${i}`} className="day empty"></div>); // 빈 div 추가
+      days.push(<div key={`empty-${i}`} className="day empty"></div>);
     }
     for (let i = 1; i <= daysInMonth(currentYear, currentMonth); i++) {
       const dayOfWeek = new Date(currentYear, currentMonth - 1, i).getDay();
@@ -62,7 +62,6 @@ function Calendar() {
     <div className="calendar">
       <div className="date-selectors">
         <div className="start-date">
-          {/* Start date selectors */}
           {["Year", "Month", "Day"].map((type, index) => (
             <div className="selector-with-icon" key={`start-${type}`}>
               <select
@@ -108,14 +107,12 @@ function Calendar() {
                   }
                 )}
               </select>
-              <img src={downArrow} alt="Down" />
+              {index === 2 && <img src={downArrow} alt="Down" />}
             </div>
           ))}
         </div>
-        <img src={rightArrow} className="arrow-right" alt="Right Arrow" />{" "}
-        {/* 중간 화살표 추가 */}
+        <img src={rightArrow} className="arrow-right" alt="Right Arrow" />
         <div className="end-date">
-          {/* End date selectors */}
           {["Year", "Month", "Day"].map((type, index) => (
             <div className="selector-with-icon" key={`end-${type}`}>
               <select
@@ -161,7 +158,7 @@ function Calendar() {
                   }
                 )}
               </select>
-              <img src={downArrow} alt="Down" />
+              {index === 2 && <img src={downArrow} alt="Down" />}
             </div>
           ))}
         </div>
