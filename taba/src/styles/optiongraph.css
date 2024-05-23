@@ -35,12 +35,12 @@ select {
 }
 
 .chart-wrapper {
-  min-width: 1200px; /* 차트 전체를 보기 위해 충분히 큰 최소 너비 설정 */
+  min-width: 896px; /* 차트 전체를 보기 위해 충분히 큰 최소 너비 설정 */
   height: 100%;
 }
 
 canvas {
-  width: 1200px !important; /* 차트의 고정 너비 */
+  width: 896px !important; /* 차트의 고정 너비 */
   height: 100% !important;
 }
 
