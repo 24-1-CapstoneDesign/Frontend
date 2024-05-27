@@ -1,5 +1,47 @@
-.container {
-  display: flex;
-  align-items: flex-start; /* 필요에 따라 조정 가능 */
-  gap: 48px; /* 컴포넌트 사이의 간격 */
+.navbar {
+  position: fixed;
+  width: 100%; /* 전체 너비를 사용하도록 설정 */
+  top: 0;
+  width: 100%;
+  z-index: 1000; /* 상단에 위치 */
+}
+
+/* 모든 내부 요소가 너비를 벗어나지 않도록 보장 */
+.navbar * {
+  box-sizing: border-box;
+}
+
+.left-nav {
+  position: fixed;
+  top: 152px; /* NavBar높이 + 간격 56px */
+  left: 0;
+  z-index: 500;
+}
+
+.user-table {
+  position: relative;
+  margin-top: 152px; /* NavBar높이 + 간격 56px */
+  margin-left: 464px; /* LeftNav의 너비 + 간격 48px */
+}
+
+.option-graph {
+  position: relative;
+  margin-top: 28px;
+  margin-left: 464px; /* LeftNav의 너비 + 간격 48px */
+}
+
+/* 1024px 이하 화면 크기에서 적용될 스타일 */
+@media (max-width: 1024px) {
+  .user-table,
+  .option-graph {
+    margin-left: 292px; /* 화면 너비가 1024px 이하일 때 LeftNav 너비 + 간격으로 292px 적용 */
+  }
+}
+
+/* 1024px 이하 화면 크기에서 적용될 스타일 */
+@media (max-width: 360px) {
+  .user-table,
+  .option-graph {
+    margin-left: 24px; /* LeftNav가 없어지므로 24px 간격만 적용 */
+  }
 }
