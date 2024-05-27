@@ -1,8 +1,6 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-
-import "../styles/navbar.css"; // CSS 파일 import
-
+import React, { useState, useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import "../styles/navbar.css";
 import logo from "../icons/logo.png";
 import logout from "../icons/logout.png";
 import menu from "../icons/menu.png";
@@ -12,31 +10,39 @@ import change from "../icons/change.png";
 import home from "../icons/home.png";
 import mypage from "../icons/mypage.png";
 import data from "../icons/data.png";
-
 import PasswordModal from "./PasswordModal";
+import UserContext from "../context/UserContext";
 
 const NavBar = () => {
-  const [isOpen, setIsOpen] = useState(false); // 메뉴의 초기값을 false로 설정
+  const { user, setUser } = useContext(UserContext);
+  console.log(user); // 추가된 부분
+  const [isOpen, setIsOpen] = useState(false);
+  const [PWOpen, setPWOpen] = useState(false);
+  const navigate = useNavigate();
 
   const toggleMenu = () => {
-    setIsOpen(!isOpen); // on,off 개념 boolean
+    setIsOpen(!isOpen);
   };
-
-  const [PWOpen, setPWOpen] = useState(false);
 
   const openModalHandler = () => {
     setPWOpen(!PWOpen);
   };
 
+  const handleLogout = () => {
+    setUser(null);
+    localStorage.removeItem("jwt"); // LocalStorage에서 JWT 삭제
+    navigate("/");
+  };
+
   return (
     <>
-      <header class="header">
-        <div class="logo">
+      <header className="header">
+        <div className="logo">
           <img src={logo} alt="로고" />
         </div>
 
-        <div class="right">
-          <p class="password-wrapper">
+        <div className="right">
+          <p className="password-wrapper">
             <button
               className="header-password-text"
               onClick={() => openModalHandler(true)}
@@ -45,12 +51,12 @@ const NavBar = () => {
             </button>
           </p>
 
-          <p class="greeting-normal">Hello</p>
-          <p class="greeting-bold"> bomin</p>
+          <p className="greeting-normal">Hello</p>
+          <p className="greeting-bold"> {user ? user.name : "Guest"}</p>
           <p>
-            <Link to="/" class="logout">
-              <img src={logout} />
-            </Link>
+            <button onClick={handleLogout} className="logout">
+              <img src={logout} alt="Logout" />
+            </button>
           </p>
         </div>
 
@@ -59,6 +65,7 @@ const NavBar = () => {
             src={isOpen ? cancel : menu}
             onClick={toggleMenu}
             style={{ cursor: "pointer" }}
+            alt="mobile"
           />
         </div>
       </header>
@@ -78,7 +85,7 @@ const NavBar = () => {
         <div className="mobile-container">
           <div className="mobile-box">
             <p className="mobile-greeting-text">Hello</p>
-            <p className="mobile-user-text"> bomin</p>
+            <p className="mobile-user-text"> {user ? user.name : "Guest"}</p>
           </div>
           <div className="mobile-menu">
             <Link
@@ -91,7 +98,7 @@ const NavBar = () => {
               }}
               className="mobile-choice"
             >
-              <img src={home} className="mobile-icon" />
+              <img src={home} className="mobile-icon" alt="Home" />
               <p className="mobile-menu-text">HOME</p>
             </Link>
 
@@ -105,7 +112,7 @@ const NavBar = () => {
               }}
               className="mobile-choice"
             >
-              <img src={data} className="mobile-icon" />
+              <img src={data} className="mobile-icon" alt="Statistics" />
               <p className="mobile-menu-text">STATISTIC</p>
             </Link>
 
@@ -119,7 +126,7 @@ const NavBar = () => {
               }}
               className="mobile-choice"
             >
-              <img src={mypage} className="mobile-icon" />
+              <img src={mypage} className="mobile-icon" alt="User Management" />
               <p className="mobile-menu-text">USER MANAGEMENT</p>
             </Link>
 
@@ -128,24 +135,22 @@ const NavBar = () => {
                 onClick={() => openModalHandler(true)}
                 className="mobile-password-button"
               >
-                <img src={change} className="mobile-icon" />
+                <img
+                  src={change}
+                  className="mobile-icon"
+                  alt="Change Password"
+                />
                 <p className="mobile-menu-text">CHANGE PASSWORD</p>
               </button>
             </div>
 
-            <Link
-              to="/"
-              style={{
-                display: "flex",
-                alignItems: "center",
-                textDecoration: "none",
-                color: "inherit",
-              }}
-              className="mobile-choice"
+            <button
+              onClick={handleLogout}
+              className="mobile-choice mobile-logout"
             >
-              <img src={logout_menu} className="mobile-icon" />
+              <img src={logout_menu} className="mobile-icon" alt="Logout" />
               <p className="mobile-menu-text">LOGOUT</p>
-            </Link>
+            </button>
           </div>
         </div>
       )}
