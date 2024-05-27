@@ -59,7 +59,7 @@ function Calendar() {
   }, [endDate]);
 
   return (
-    <div className="calendar">
+    <div className="custom-calendar">
       <div className="date-selectors">
         <div className="start-date">
           {["Year", "Month", "Day"].map((type, index) => (
