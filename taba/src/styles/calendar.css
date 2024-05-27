@@ -4,7 +4,7 @@
   box-sizing: border-box; /* 모든 요소에 적용 */
 }
 
-.calendar {
+.custom-calendar {
   display: flex;
   flex-direction: column;
   align-items: flex-start; /* 좌측 정렬 */
@@ -161,7 +161,7 @@ select {
 }
 
 @media (max-width: 1024px) {
-  .calendar {
+  .custom-calendar {
     width: 708px; /* 너비 변경 */
     padding: 24px; /* 내부 여백 변경 */
   }
@@ -210,7 +210,7 @@ select {
 }
 
 @media (max-width: 360px) {
-  .calendar {
+  .custom-calendar {
     width: 312px; /* 너비 변경 */
     height: 144px; /* 높이 변경 */
     padding: 16px 8px; /* 상하 16px, 좌우 8px */
