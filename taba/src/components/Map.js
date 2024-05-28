@@ -1,8 +1,34 @@
-import React, { useState, useEffect } from "react";
+import { useEffect, useRef } from "react";
+
 import "../styles/map.css";
 
-function Map() {
-  return <div className="custom-map">지도가 들어갈 곳 입니다.</div>;
-}
+const Map = () => {
+  const mapElement = useRef(null);
+  const { naver } = window;
+
+  useEffect(() => {
+    if (!mapElement.current || !naver) return;
+
+    // 지도에 표시할 위치의 위도와 경도 좌표를 파라미터로 넣어줍니다.
+    const location = new naver.maps.LatLng(37.5656, 126.9769);
+    const mapOptions = {
+      center: location,
+      zoom: 17,
+      zoomControl: true,
+    };
+
+    const map = new naver.maps.Map(mapElement.current, mapOptions);
+    new naver.maps.Marker({
+      position: location,
+      map,
+    });
+  }, []);
+
+  return (
+    <div className="map-container">
+      <div ref={mapElement} className="custom-map" />
+    </div>
+  );
+};
 
 export default Map;

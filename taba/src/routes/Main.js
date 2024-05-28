@@ -13,7 +13,7 @@ export default function Main() {
       <div className="left-nav">
         <LeftNav />
       </div>
-      <div className="map">
+      <div className="map-container">
         <Map />
       </div>
       <div className="table">
