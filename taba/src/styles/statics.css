@@ -18,30 +18,38 @@
   z-index: 500;
 }
 
-.user-table {
+.calendar {
   position: relative;
   margin-top: 152px; /* NavBar높이 + 간격 56px */
   margin-left: 464px; /* LeftNav의 너비 + 간격 48px */
 }
 
-.option-graph {
+.table {
   position: relative;
   margin-top: 28px;
   margin-left: 464px; /* LeftNav의 너비 + 간격 48px */
 }
 
+.staticsgraph {
+  position: relative;
+  margin-top: 28px;
+  margin-left: 464px;
+}
+
 /* 1024px 이하 화면 크기에서 적용될 스타일 */
 @media (max-width: 1024px) {
-  .user-table,
-  .option-graph {
+  .calendar,
+  .table,
+  .staticsgraph {
     margin-left: 292px; /* 화면 너비가 1024px 이하일 때 LeftNav 너비 + 간격으로 292px 적용 */
   }
 }
 
 /* 1024px 이하 화면 크기에서 적용될 스타일 */
 @media (max-width: 360px) {
-  .user-table,
-  .option-graph {
+  .calendar,
+  .table,
+  .staticsgraph {
     margin-left: 24px; /* LeftNav가 없어지므로 24px 간격만 적용 */
   }
 }

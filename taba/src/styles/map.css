@@ -1,0 +1,17 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans:wght@500&display=swap"); /* Noto Sans font 가져옴 */
+
+.map-container {
+  margin-top: 200px;
+  margin-left: 230px; /* LeftNav의 너비 + 간격 48px */
+}
+
+.custom-map {
+  width: 896px;
+  height: 422px;
+  margin-left: 0; /* 왼쪽 마진을 0으로 설정 */
+  margin-right: auto; /* 오른쪽 마진을 자동으로 설정하여 좌측 정렬 */
+  padding: 36px 32px; /* 상단, 하단을 36px, 좌우를 32px로 설정 */
+  background-color: #f8f8f8;
+  box-shadow: 0px 24px 48px -8px rgba(39, 76, 119, 0.16);
+  border-radius: 8px;
+}
