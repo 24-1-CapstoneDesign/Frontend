@@ -18,10 +18,8 @@
   z-index: 500;
 }
 
-.map {
+.map-container {
   position: relative;
-  margin-top: 152px; /* NavBar높이 + 간격 56px */
-  margin-left: 464px; /* LeftNav의 너비 + 간격 48px */
 }
 
 .table {
