@@ -30,15 +30,13 @@
 
 /* 1024px 이하 화면 크기에서 적용될 스타일 */
 @media (max-width: 1024px) {
-  .map,
   .table {
     margin-left: 292px; /* 화면 너비가 1024px 이하일 때 LeftNav 너비 + 간격으로 292px 적용 */
   }
 }
 
-/* 1024px 이하 화면 크기에서 적용될 스타일 */
+/* 360px 이하 화면 크기에서 적용될 스타일 */
 @media (max-width: 360px) {
-  .map,
   .table {
     margin-left: 24px; /* LeftNav가 없어지므로 24px 간격만 적용 */
   }
