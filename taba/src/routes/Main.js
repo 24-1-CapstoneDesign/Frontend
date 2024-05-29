@@ -4,6 +4,8 @@ import NavBar from "../components/NavBar";
 import Table from "../components/Table";
 import Map from "../components/Map";
 
+import PositiveMarker from "../components/PositiveMarker";
+
 export default function Main() {
   return (
     <div>
