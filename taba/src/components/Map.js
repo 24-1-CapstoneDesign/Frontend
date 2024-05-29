@@ -5,7 +5,6 @@ import "../styles/map.css";
 const Map = () => {
   const mapElement = useRef(null);
   const { naver } = window;
-  const mapInstance = useRef(null);
   const attemptCountRef = useRef(0); // 시도 횟수를 추적하는 ref
   const [myLocation, setMyLocation] = useState({});
 
