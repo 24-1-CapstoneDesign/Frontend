@@ -1,11 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 
 import "../styles/passwordmodal.css";
 
 import eye_close from "../icons/eye_close.png";
 import eye_open from "../icons/eye_open.png";
 
+import { ChangePW } from "../services/LocationService";
+import UserContext from "../context/UserContext";
+
 const PasswordModal = () => {
+  const { user } = useContext(UserContext); // 현재 사용자 정보 가져오기
+  const navigate = useNavigate();
+
   const [ori_pw, setoriPW] = useState("");
   const [new_pw, setnewPW] = useState("");
   const [check_pw, setcheckPW] = useState("");
@@ -23,6 +30,20 @@ const PasswordModal = () => {
   };
   const onChangeCheckPW = (event) => {
     setcheckPW(event.target.value);
+  };
+
+  const handlePW = () => {
+    ChangePW(user.name, ori_pw, new_pw, check_pw)
+      .then((response) => {
+        console.log("PW Response:", response); // 응답 데이터 확인
+        if (response.success) {
+          alert("비밀번호가 변경되었습니다. 다시 로그인해주세요.");
+          navigate("/");
+        }
+      })
+      .catch((error) => {
+        console.error("PW Error:", error);
+      });
   };
 
   return (
@@ -90,7 +111,9 @@ const PasswordModal = () => {
           )}
         </div>
         <div className="pw-confirm-container">
-          <button className="pw-confirm-button">확 인</button>
+          <button className="pw-confirm-button" onClick={handlePW}>
+            확 인
+          </button>
         </div>
       </div>
     </div>
