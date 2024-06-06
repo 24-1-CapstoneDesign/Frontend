@@ -55,7 +55,7 @@ const StaticsGraph = () => {
       y: {
         ticks: {
           callback: function (value) {
-            return value === "성공" ? "성공" : "실패";
+            return value === 0 ? "성공" : "실패";
           },
         },
       },
@@ -80,7 +80,7 @@ const StaticsGraph = () => {
   return (
     <div className="stat-container">
       <div className="stat-box">
-        <h2>차종</h2>
+        <h2>차급</h2>
         <div className="pie-chart-container">
           <Pie data={pieData} options={{ maintainAspectRatio: false }} />
         </div>
