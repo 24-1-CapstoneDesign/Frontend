@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans:wght@500&display=swap"); /* Noto Sans font 가져옴 */
 
 .map-container {
-  margin-top: 200px;
+  margin-top: 152px;
   margin-left: 230px; /* LeftNav의 너비 + 간격 48px */
 }
 
@@ -22,7 +22,7 @@
     height: 436px;
   }
   .map-container {
-    margin-top: 200px;
+    margin-top: 152px;
     margin-left: 150px;
   }
 }
