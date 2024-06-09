@@ -1,10 +1,17 @@
 // 사용자 정보 관리를 위해 생성
-import React, { createContext, useState } from "react";
+import React, { createContext, useState, useEffect } from "react";
 
 const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+  }, []);
 
   return (
     <UserContext.Provider value={{ user, setUser }}>

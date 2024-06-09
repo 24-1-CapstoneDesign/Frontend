@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/loginmodal.css";
 import cancel from "../icons/login_cancel.png";
-import { loginUser } from "../services/apiService";
+import { loginUser } from "../services/loginModal";
 import UserContext from "../context/UserContext";
 
 const LoginModal = () => {
@@ -36,6 +36,7 @@ const LoginModal = () => {
           console.log("User Data:", userData); // 사용자 데이터 확인
           setUser({ name: userData.name }); // 사용자 정보 설정
           localStorage.setItem("jwt", userData.jwt); // JWT를 LocalStorage에 저장
+          localStorage.setItem("user", JSON.stringify({ name: userData.name })); // 사용자 정보를 LocalStorage에 저장
           navigate("/main");
         } else {
           alert("Login failed. Please check your ID and Password.");

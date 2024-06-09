@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../styles/navbar.css";
 import logo from "../icons/logo.png";
@@ -15,10 +15,16 @@ import UserContext from "../context/UserContext";
 
 const NavBar = () => {
   const { user, setUser } = useContext(UserContext);
-  // console.log(user); // 추가된 부분
   const [isOpen, setIsOpen] = useState(false);
   const [PWOpen, setPWOpen] = useState(false);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+  }, [setUser]);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -31,6 +37,7 @@ const NavBar = () => {
   const handleLogout = () => {
     setUser(null);
     localStorage.removeItem("jwt"); // LocalStorage에서 JWT 삭제
+    localStorage.removeItem("user"); // LocalStorage에서 유저 정보 삭제
     navigate("/");
   };
 
