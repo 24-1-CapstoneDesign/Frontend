@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ReactDOMServer from "react-dom/server";
+import { LocationData } from "../services/LocationService";
 
 import "../styles/map.css";
 
@@ -12,19 +13,18 @@ const Map = () => {
   const { naver } = window;
   const attemptCountRef = useRef(0);
   const [myLocation, setMyLocation] = useState({});
-
-  const getLocation = () => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(success, error, {
-        maximumAge: 60000,
-        timeout: 5000,
-        enableHighAccuracy: true,
-      });
-    }
-  };
+  const [ErrorLocation, setErrorLocation] = useState([]);
+  const [newMap, setNewMap] = useState(null);
+  const [createMarkerList, setCreateMarkerList] = useState([]); // 상태로 관리
 
   useEffect(() => {
     getLocation();
+    GetErrorLocation();
+    const intervalId = setInterval(() => {
+      GetErrorLocation();
+    }, 10000); // 10초마다 데이터 갱신
+
+    return () => clearInterval(intervalId); // 컴포넌트 언마운트 시 인터벌 클리어
   }, []);
 
   useEffect(() => {
@@ -40,84 +40,11 @@ const Map = () => {
     };
 
     const map = new naver.maps.Map(mapElement.current, mapOptions);
-
     setNewMap(map);
-  }, [mapElement, myLocation]);
-
-  function success(position) {
-    setMyLocation({
-      latitude: position.coords.latitude,
-      longitude: position.coords.longitude,
-    });
-    attemptCountRef.current = 0;
-  }
-
-  function error() {
-    if (attemptCountRef.current < 3) {
-      attemptCountRef.current += 1;
-      getLocation();
-    } else {
-      console.error("위치 정보를 가져오는 데 실패했습니다.");
-    }
-  }
-
-  const createMarkerList = [];
-  const [newMap, setNewMap] = useState(null);
-
-  const totalDataArray = [
-    [1, "test1", 37.3595704, 127.105399],
-    [2, "test2", myLocation.latitude, myLocation.longitude],
-    [3, "test3", 39.3595704, 135.105399],
-    [4, "test4", 40.3595704, 135.105399],
-    [5, "test5", 41.3595704, 135.105399],
-    [6, "test6", 42.3595704, 135.105399],
-  ];
-
-  const addMarkers = () => {
-    if (!newMap) return;
-    for (let i = 0; i < totalDataArray.length; i++) {
-      let [id, name, lat, lng] = totalDataArray[i];
-      addMarker(id, name, lat, lng);
-    }
-  };
-
-  // 기존 addMarker 함수 내에서 마커 생성 부분을 수정합니다.
-  const addMarker = (id, name, lat, lng) => {
-    try {
-      // if 해결됐으면
-      const markerHtml = ReactDOMServer.renderToString(
-        <PositiveMarker id={id} />
-      );
-      // else: // 해결 안됐으면
-      // const markerHtml = ReactDOMServer.renderToString(
-      //   <NegativeMarker id={id} />
-      // );
-
-      let newMarker = new naver.maps.Marker({
-        position: new naver.maps.LatLng(lat, lng),
-        map: newMap,
-        title: name,
-        clickable: true,
-        icon: {
-          content: markerHtml, // React 컴포넌트를 문자열로 변환하여 여기에 설정
-          size: new naver.maps.Size(22, 35),
-          anchor: new naver.maps.Point(11, 35),
-        },
-      });
-      newMarker.setTitle(name);
-      createMarkerList.push(newMarker);
-
-      // naver.maps.Event.addListener(newMarker, "click", () =>
-      //   markerClickHandler(id)
-      // );
-    } catch (e) {
-      console.error(e);
-    }
-  };
+  }, [mapElement, myLocation, naver]);
 
   useEffect(() => {
     if (newMap) {
-      addMarkers(); // 수정: newMap이 설정된 후 마커를 추가합니다.
       const MoveEventListner = naver.maps.Event.addListener(
         newMap,
         "idle",
@@ -125,9 +52,97 @@ const Map = () => {
       );
       return () => {
         naver.maps.Event.removeListener(MoveEventListner);
+        setCreateMarkerList([]); // 컴포넌트 unmount 시 배열 초기화
       };
     }
   }, [newMap]);
+
+  useEffect(() => {
+    if (newMap) {
+      addMarkers();
+    }
+  }, [ErrorLocation, newMap]);
+
+  const GetErrorLocation = () => {
+    LocationData()
+      .then((response) => {
+        if (response.success) {
+          const ErrorData = response.data; // 응답에서 사용자 데이터 추출
+          setErrorLocation(ErrorData);
+        } else {
+          alert("Error Location failed.");
+        }
+      })
+      .catch((error) => {
+        console.error("Location Error:", error);
+      });
+  };
+
+  function Position_success(position) {
+    setMyLocation({
+      latitude: position.coords.latitude,
+      longitude: position.coords.longitude,
+    });
+    attemptCountRef.current = 0;
+  }
+
+  function Position_error() {
+    if (attemptCountRef.current < 1) {
+      attemptCountRef.current += 1;
+      getLocation();
+    } else {
+      console.error("위치 정보를 가져오는 데 실패했습니다.");
+    }
+  }
+
+  const getLocation = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        Position_success,
+        Position_error
+      );
+    }
+  };
+
+  const addMarkers = () => {
+    if (!newMap) return;
+
+    // 기존 마커 제거
+    createMarkerList.forEach((marker) => marker.setMap(null));
+
+    const newMarkerList = []; // 새로운 배열 생성
+
+    ErrorLocation.forEach((location) => {
+      let markerHtml;
+
+      if (location.status === "NORMAL") {
+        markerHtml = ReactDOMServer.renderToString(
+          <PositiveMarker id={location.id} />
+        );
+      } else {
+        markerHtml = ReactDOMServer.renderToString(
+          <NegativeMarker id={location.id} />
+        );
+      }
+
+      const newMarker = new naver.maps.Marker({
+        position: new naver.maps.LatLng(location.latitude, location.longitude),
+        map: newMap,
+        title: location.car_number,
+        clickable: true,
+        icon: {
+          content: markerHtml,
+          size: new naver.maps.Size(22, 35),
+          anchor: new naver.maps.Point(11, 35),
+        },
+      });
+
+      newMarker.setTitle(location.car_number);
+      newMarkerList.push(newMarker);
+    });
+
+    setCreateMarkerList(newMarkerList); // 새로운 마커 리스트 설정
+  };
 
   const idleHandler = () => {
     updateMarkers(newMap, createMarkerList);
@@ -135,19 +150,15 @@ const Map = () => {
 
   const updateMarkers = (map, markers) => {
     if (!map) return;
-    let mapBounds = map.getBounds();
-    let marker, position;
-
-    for (let i = 0; i < markers.length; i++) {
-      marker = markers[i];
-      position = marker.getPosition();
-
+    const mapBounds = map.getBounds();
+    markers.forEach((marker) => {
+      const position = marker.getPosition();
       if (mapBounds.hasPoint(position)) {
         showMarker(map, marker);
       } else {
         hideMarker(marker);
       }
-    }
+    });
   };
 
   const showMarker = (map, marker) => {
@@ -159,13 +170,6 @@ const Map = () => {
     if (!marker.getMap()) return;
     marker.setMap(null);
   };
-
-  const navigate = useNavigate();
-
-  // //마커를 클릭했을 때 실행할 이벤트 핸들러
-  // const markerClickHandler = (id) => {
-  //   navigate(`/ground/${id}`);
-  // };
 
   return (
     <div className="map-container">

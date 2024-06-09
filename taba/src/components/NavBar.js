@@ -15,7 +15,7 @@ import UserContext from "../context/UserContext";
 
 const NavBar = () => {
   const { user, setUser } = useContext(UserContext);
-  console.log(user); // 추가된 부분
+  // console.log(user); // 추가된 부분
   const [isOpen, setIsOpen] = useState(false);
   const [PWOpen, setPWOpen] = useState(false);
   const navigate = useNavigate();
