@@ -1,5 +1,0 @@
-{
-    "rewrites": [
-      { "source": "/api/(.*)", "destination": "https://api.ice-taba.site/$1" }
-    ]
-  }
