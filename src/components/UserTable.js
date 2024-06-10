@@ -5,12 +5,19 @@ import inactiveLeftIcon from "../icons/inactive_left.png";
 import activeRightIcon from "../icons/active_right.png";
 import inactiveRightIcon from "../icons/inactive_right.png";
 import DownloadModal from "../components/DownloadModal";
-import { fetchUsers, fetchCarsByUserId } from "../services/userTable";
+import {
+  fetchUsers,
+  fetchCarsByUserId,
+  fetchDrivingSessionsByUser,
+  fetchDrivingSessionsByCarNumber,
+} from "../services/userTable";
 
 function UserTable() {
   const [userData, setUserData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [selectedSessions, setSelectedSessions] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const itemsPerPage = 5;
 
@@ -22,37 +29,93 @@ function UserTable() {
     try {
       const usersResponse = await fetchUsers();
       if (!usersResponse.success || !usersResponse.data) {
-        throw new Error("No users found or unable to fetch users.");
+        throw new Error("Failed to fetch users or no data available.");
       }
 
-      const usersWithCars = await Promise.all(
+      const usersWithCarsAndSessions = await Promise.all(
         usersResponse.data.map(async (user) => {
           try {
             const carsResponse = await fetchCarsByUserId(user.id);
-            if (
-              !carsResponse.success ||
-              !carsResponse.data ||
-              carsResponse.data.length === 0
-            ) {
-              return { ...user, cars: "No cars data available." };
+            if (!carsResponse.success || !carsResponse.data) {
+              return { ...user, cars: "No cars data available" };
             }
-            return { ...user, cars: carsResponse.data };
-          } catch (error) {
-            console.error(`Error fetching cars for user ${user.id}:`, error);
+
+            const sessionsResponse = await fetchDrivingSessionsByUser(user.id);
+            if (!sessionsResponse.success || !sessionsResponse.data) {
+              return {
+                ...user,
+                cars: carsResponse.data,
+                hasActiveError: false,
+                sessions: [],
+              };
+            }
+
+            let hasActiveError = sessionsResponse.data.some(
+              (session) => session.ERROR_STATUS !== null
+            );
             return {
               ...user,
-              cars: "Failed to load cars data. " + error.message,
+              cars: carsResponse.data,
+              hasActiveError,
+              sessions: sessionsResponse.data,
+            };
+          } catch (error) {
+            console.error(`Error fetching data for user ${user.id}:`, error);
+            return {
+              ...user,
+              cars: "Failed to load cars data",
+              hasActiveError: false,
+              sessions: [],
             };
           }
         })
       );
 
-      setUserData(usersWithCars);
+      setUserData(usersWithCarsAndSessions);
     } catch (error) {
       console.error("Critical error loading data: ", error.message);
       setUserData([]);
     }
   }
+
+  const handleRowClick = (user) => {
+    const activeSessions = user.sessions.filter(
+      (session) => session.ERROR_STATUS !== null
+    );
+
+    if (activeSessions.length > 0) {
+      setSelectedSessions(activeSessions);
+      setIsModalVisible(true);
+    } else {
+      setSelectedSessions([]);
+      setIsModalVisible(false);
+      alert("데이터가 없습니다.");
+    }
+  };
+
+  const handleSearch = async () => {
+    try {
+      const sessionsResponse = await fetchDrivingSessionsByCarNumber(
+        searchQuery
+      );
+      if (!sessionsResponse.success || !sessionsResponse.data) {
+        alert("해당 차량 번호에 대한 데이터를 찾을 수 없습니다.");
+        return;
+      }
+      const activeSessions = sessionsResponse.data.filter(
+        (session) => session.ERROR_STATUS !== null
+      );
+      if (activeSessions.length > 0) {
+        setSelectedSessions(activeSessions);
+        setIsModalVisible(true);
+      } else {
+        alert("해당 차량 번호에 대한 데이터가 없습니다.");
+      }
+    } catch (error) {
+      console.error("Search error: ", error.message);
+      alert("검색 중 오류가 발생했습니다.");
+    }
+  };
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -92,20 +155,26 @@ function UserTable() {
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = userData.slice(indexOfFirstItem, indexOfLastItem);
 
-  const handleRowClick = () => {
-    setIsModalVisible(true);
-  };
-
-  const handleClose = () => {
-    setIsModalVisible(false);
-  };
-
   return (
     <>
-      <DownloadModal isVisible={isModalVisible} onClose={handleClose} />
+      <DownloadModal
+        isVisible={isModalVisible}
+        onClose={() => setIsModalVisible(false)}
+        sessions={selectedSessions}
+      />
       <div className="search-bar">
-        <input type="text" placeholder="차량 번호를 입력하세요." />
-        <div className="search-icon"></div>
+        <input
+          type="text"
+          placeholder="차량 번호를 입력하세요."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              handleSearch();
+            }
+          }}
+        />
+        <div className="search-icon" onClick={handleSearch}></div>
       </div>
       <div className="container">
         <div className="title">회원 차량 목록</div>
@@ -121,31 +190,23 @@ function UserTable() {
             </tr>
           </thead>
           <tbody>
-            {currentItems.length > 0 ? (
-              currentItems.map((user) =>
-                typeof user.cars === "string" ? (
-                  <tr key={`user-no-cars-${user.id}`}>
-                    <td colSpan="5">{user.cars}</td>
-                  </tr>
-                ) : (
-                  user.cars.map((car) => (
-                    <tr key={`${user.id}-${car.id}`} onClick={handleRowClick}>
-                      <td>{user.id}</td>
-                      <td>{car.car_size}</td>
-                      <td>{car.car_number}</td>
-                      <td>{formatDate(user.createdAt)}</td>
-                      <td>
-                        {user.withdrawAt ? formatDate(user.withdrawAt) : "N/A"}
-                      </td>
-                    </tr>
-                  ))
-                )
-              )
-            ) : (
-              <tr>
-                <td colSpan="5">No user data available.</td>
+            {currentItems.map((user) => (
+              <tr key={user.id} onClick={() => handleRowClick(user)}>
+                <td>{user.id}</td>
+                <td>
+                  {user.cars && user.cars.length > 0
+                    ? user.cars[0].car_size
+                    : "N/A"}
+                </td>
+                <td>
+                  {user.cars && user.cars.length > 0
+                    ? user.cars[0].car_number
+                    : "N/A"}
+                </td>
+                <td>{formatDate(user.createdAt)}</td>
+                <td>{user.withdrawAt ? formatDate(user.withdrawAt) : "N/A"}</td>
               </tr>
-            )}
+            ))}
           </tbody>
         </table>
         <div className="pagination">
