@@ -12,14 +12,15 @@ function CarTable() {
   const [carData, setcarData] = useState([]);
   const itemsPerPage = 5;
   const totalItems = carData.length;
-  const totalPages = Math.ceil(totalItems / itemsPerPage);
+  const totalPages = Math.max(Math.ceil(totalItems / itemsPerPage), 1); // 최소 1페이지가 되도록 설정
 
   const { naver } = window;
 
   function removeFirstPart(address) {
-    const parts = address.split(" ", 3); // 주소를 처음 두 번째 공백까지 나누기
+    const parts = address.split(" ", 2); // 주소를 처음 두 번째 공백까지 나누기
+    console.log(parts);
     if (parts.length > 1) {
-      return address.substring(address.indexOf(parts[2])); // 두 번째 부분부터 반환
+      return address.substring(address.indexOf(parts[1])); // 두 번째 부분부터 반환
     }
     return address; // 공백이 없으면 원래 주소 반환
   }
@@ -85,7 +86,7 @@ function CarTable() {
     totalPages,
     Math.ceil(currentPage / 5) * 5
   );
-  const minPageNumberLimit = maxPageNumberLimit - 4;
+  const minPageNumberLimit = Math.max(1, maxPageNumberLimit - 4); // 최소 1페이지가 되도록 설정
 
   const handleClick = (pageNumber) => {
     setCurrentPage(pageNumber);

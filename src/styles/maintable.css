@@ -8,8 +8,7 @@
 .container {
   font-family: "Noto Sans", sans-serif; /* 폰트 서체 */
   width: 896px;
-  height: 422px;
-  margin-left: 0; /* 왼쪽 마진을 0으로 설정 */
+  height: auto;
   margin-right: auto; /* 오른쪽 마진을 자동으로 설정하여 좌측 정렬 */
   padding: 36px 32px; /* 상단, 하단을 36px, 좌우를 32px로 설정 */
   background-color: #f8f8f8;
@@ -88,7 +87,7 @@
 .table-container td {
   background-color: #f0f0f0;
   font-weight: 500;
-  font-size: 20px;
+  font-size: 18px !important;
   text-align: left;
   padding: 4px 8px;
 }
@@ -137,6 +136,7 @@
   display: flex;
   justify-content: flex-end;
   margin-top: 16px; /* table-container와 16px 간격 */
+  margin-bottom: 16px;
 }
 
 /* 페이지네이션 버튼 스타일 */
@@ -196,5 +196,6 @@
   /* 버튼과 테이블 간의 상단 마진 조정 */
   .pagination {
     margin-top: 8px; /* 마진 감소 */
+    margin-bottom: 8px;
   }
 }

@@ -6,22 +6,23 @@ import activeRightIcon from "../icons/active_right.png";
 import inactiveRightIcon from "../icons/inactive_right.png";
 
 import { CalendarContext } from "../context/StaticTableContext";
-import { SearchDriving } from "../services/SearchDriving";
+import { fetchSessionData } from "../services/dateSelect";
+import { fetchCarData } from "../services/carService";
 
 function StaticTable() {
   const [currentPage, setCurrentPage] = useState(1);
   const [carData, setcarData] = useState([]);
   const itemsPerPage = 5;
   const totalItems = carData.length;
-  const totalPages = Math.ceil(totalItems / itemsPerPage);
+  const totalPages = Math.max(1, Math.ceil(totalItems / itemsPerPage)); // 최소 1페이지
   const { startDate, endDate } = useContext(CalendarContext);
 
   const { naver } = window;
 
   function removeFirstPart(address) {
-    const parts = address.split(" ", 3); // 주소를 처음 두 번째 공백까지 나누기
+    const parts = address.split(" ", 2); // 주소를 처음 두 번째 공백까지 나누기
     if (parts.length > 1) {
-      return address.substring(address.indexOf(parts[2])); // 두 번째 부분부터 반환
+      return address.substring(address.indexOf(parts[1])); // 두 번째 부분부터 반환
     }
     return address; // 공백이 없으면 원래 주소 반환
   }
@@ -51,27 +52,28 @@ function StaticTable() {
 
   const GetErrorLocation = async () => {
     try {
-      const response = await SearchDriving(startDate, endDate);
+      const response = await fetchSessionData(startDate, endDate);
       if (response.success) {
         const ErrorData = response.data; // 응답에서 사용자 데이터 추출
 
         const formattedData = await Promise.all(
           ErrorData.map(async (item) => {
-            if (item.error_status === "ERROR") {
+            const carData = await fetchCarData(item.car_id);
+            if (item.error_status !== "NORMAL") {
               return {
-                id: item.id,
+                id: item.driving_session_id,
                 size:
                   item.car_size === "SMALL"
                     ? "소형"
                     : item.car_size === "MEDIUM"
                     ? "중형"
                     : "대형", // 차급 변환
-                number: item.car_numbererror,
+                number: carData.data.car_number,
                 location: await reversecoord(
                   item.error_latitude,
                   item.error_longitude
                 ), // 예시로 위도와 경도를 location 필드에 저장
-                solved: item.status === "ERROR" ? "미해결" : "해결완료", // 상태에 따라 해결 여부 설정
+                solved: item.error_status === "ERROR" ? "미해결" : "해결완료", // 상태에 따라 해결 여부 설정
               };
             }
             // ERROR 상태가 아닌 경우 null 반환
@@ -100,7 +102,7 @@ function StaticTable() {
     totalPages,
     Math.ceil(currentPage / 5) * 5
   );
-  const minPageNumberLimit = maxPageNumberLimit - 4;
+  const minPageNumberLimit = Math.max(1, maxPageNumberLimit - 4); // 최소 1
 
   const handleClick = (pageNumber) => {
     setCurrentPage(pageNumber);
