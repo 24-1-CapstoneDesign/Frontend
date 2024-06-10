@@ -3,8 +3,9 @@ import "../styles/calendar.css"; // CSS 스타일 임포트
 import downArrow from "../icons/down.png"; // 다운 아이콘 추가
 import rightArrow from "../icons/tail_right.png"; // 오른쪽 화살표 이미지 추가
 import CalendarContext from "../context/StaticTableContext";
+import { fetchSessionData } from "../services/dateSelect";
 
-function Calendar() {
+function Calendar({setSessionData}) {
   const { startDate, endDate, setStartDate, setEndDate } =
     useContext(CalendarContext);
 
@@ -40,6 +41,9 @@ function Calendar() {
         <div
           key={i}
           className={`day ${dayClass} ${isSelected(i) ? "selected" : ""}`}
+          onClick={() =>
+            handleDateChange(setStartDate, currentYear, currentMonth, i)
+          }
         >
           <span>{i}</span>
         </div>
@@ -48,17 +52,15 @@ function Calendar() {
     return days;
   };
 
-  const weekDays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-
   useEffect(() => {
-    setCurrentYear(startDate.getFullYear());
-    setCurrentMonth(startDate.getMonth() + 1);
-  }, [startDate]);
+    const fetchData = async () => {
+      const response = await fetchSessionData(startDate, endDate);
+      console.log("Fetched session data:", response); // 데이터 확인을 위해 콘솔에 출력
+      setSessionData(response);
+    };
 
-  useEffect(() => {
-    setCurrentYear(endDate.getFullYear());
-    setCurrentMonth(endDate.getMonth() + 1);
-  }, [endDate]);
+    fetchData();
+  }, [startDate, endDate, setSessionData]);
 
   return (
     <div className="custom-calendar">
@@ -166,7 +168,7 @@ function Calendar() {
         </div>
       </div>
       <div className="week-days">
-        {weekDays.map((day) => (
+        {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((day) => (
           <div key={day} className="week-day">
             {day}
           </div>
