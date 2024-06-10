@@ -19,9 +19,9 @@ function StaticTable() {
   const { naver } = window;
 
   function removeFirstPart(address) {
-    const parts = address.split(" ", 3); // 주소를 처음 두 번째 공백까지 나누기
+    const parts = address.split(" ", 2); // 주소를 처음 두 번째 공백까지 나누기
     if (parts.length > 1) {
-      return address.substring(address.indexOf(parts[2])); // 두 번째 부분부터 반환
+      return address.substring(address.indexOf(parts[1])); // 두 번째 부분부터 반환
     }
     return address; // 공백이 없으면 원래 주소 반환
   }
