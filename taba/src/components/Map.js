@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ReactDOMServer from "react-dom/server";
-import { LocationData } from "../services/LocationService";
+import { GetErrorList } from "../services/GetErrorList";
 
 import "../styles/map.css";
 
@@ -64,7 +64,7 @@ const Map = () => {
   }, [ErrorLocation, newMap]);
 
   const GetErrorLocation = () => {
-    LocationData()
+    GetErrorList()
       .then((response) => {
         if (response.success) {
           const ErrorData = response.data; // 응답에서 사용자 데이터 추출
@@ -115,7 +115,7 @@ const Map = () => {
     ErrorLocation.forEach((location) => {
       let markerHtml;
 
-      if (location.status === "NORMAL") {
+      if (location.status === "SOLVE") {
         markerHtml = ReactDOMServer.renderToString(
           <PositiveMarker id={location.id} />
         );
