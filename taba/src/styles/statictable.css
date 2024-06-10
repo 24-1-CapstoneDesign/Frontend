@@ -1,0 +1,200 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans:wght@500&display=swap"); /* Noto Sans font 가져옴 */
+
+* {
+  box-sizing: border-box; /* 모든 요소에 적용 */
+}
+
+/* 전체 컨테이너 박스 스타일 */
+.container {
+  font-family: "Noto Sans", sans-serif; /* 폰트 서체 */
+  width: 896px;
+  height: 422px;
+  margin-left: 0; /* 왼쪽 마진을 0으로 설정 */
+  margin-right: auto; /* 오른쪽 마진을 자동으로 설정하여 좌측 정렬 */
+  padding: 36px 32px; /* 상단, 하단을 36px, 좌우를 32px로 설정 */
+  background-color: #f8f8f8;
+  box-shadow: 0px 24px 48px -8px rgba(39, 76, 119, 0.16);
+  border-radius: 8px;
+}
+
+/* 제목 스타일 */
+.title {
+  width: 832px;
+  height: 33px;
+  font-size: 24px;
+  color: #000000;
+  font-weight: 700;
+  margin-bottom: 8px; /* 선 위 여백 */
+}
+
+/* 선(divider) 스타일 */
+.divider {
+  width: 832px;
+  height: 1px; /* 선의 높이 */
+  background-color: #d9d9d9; /* 선의 색상 */
+  margin-bottom: 12px; /* 선 아래 여백 */
+}
+
+/* 테이블 스타일 */
+.table-container {
+  width: 832px;
+  height: 240px;
+  border-collapse: collapse;
+}
+
+/* 테이블 헤더 스타일 설정 */
+.table-container thead {
+  width: 832px; /* thead의 너비 */
+  height: 40px; /* thead의 높이 */
+}
+
+/* 테이블 헤더 스타일 */
+.table-container th {
+  background-color: #274c77; /* 배경색 변경 */
+  color: #ffffff; /* 글자색 변경 */
+  font-weight: 500;
+  font-size: 20px;
+  text-align: left;
+  padding: 4px 8px;
+  border-bottom: 1px solid #ddd;
+}
+
+/* 'ID' 컬럼 스타일 */
+.table-container th:nth-child(1) {
+  width: 96px; /* 너비를 100으로 설정하고 싶은데 알 수 없는 소수점이 생겨서 이렇게 일단 설정해 놨습니다 */
+  height: 32px; /* 높이 */
+  padding-right: 0; /* 우측 여백 제거 */
+  border-top-left-radius: 4px; /* 좌측 상단 둥근 모서리 추가 */
+}
+
+.table-container th:nth-child(2),
+.table-container th:nth-child(3),
+.table-container th:nth-child(4) {
+  /* '차종', '차량 번호', '사건 발생 장소'의 좌우 패딩 제거 */
+  padding-left: 0;
+  padding-right: 0;
+  width: 180px; /* 너비 */
+  height: 32px; /* 높이 */
+}
+
+.table-container th:last-child {
+  padding-left: 0; /* '사건 해결 여부'의 좌측 패딩 제거 */
+  width: 180px; /* 너비 */
+  height: 32px; /* 높이 */
+  border-top-right-radius: 4px; /* 우측 상단 둥근 모서리 추가 */
+}
+
+/* 테이블 바디 셀 스타일 */
+.table-container td {
+  background-color: #f0f0f0;
+  font-weight: 500;
+  font-size: 20px;
+  text-align: left;
+  padding: 4px 8px;
+}
+
+/* 테이블 행 호버 효과 */
+.table-container tr:hover td {
+  background-color: #d9d9d9;
+}
+
+/* 'ID' 컬럼 스타일 */
+.table-container td:nth-child(1) {
+  width: 100px; /* 너비 */
+  height: 32px; /* 높이 */
+  padding-right: 0; /* 우측 여백 제거 */
+  border-top-left-radius: 4px; /* 좌측 상단 둥근 모서리 추가 */
+}
+
+.table-container td:nth-child(2),
+.table-container td:nth-child(3),
+.table-container td:nth-child(4) {
+  /* '차종', '차량 번호', '사건 발생 장소'의 좌우 패딩 제거 */
+  padding-left: 0;
+  padding-right: 0;
+  width: 180px; /* 너비 */
+  height: 32px; /* 높이 */
+}
+
+.table-container td:last-child {
+  padding-left: 0; /* '사건 해결 여부'의 좌측 패딩 제거 */
+  width: 180px; /* 너비 */
+  height: 32px; /* 높이 */
+  border-top-right-radius: 4px; /* 우측 상단 둥근 모서리 추가 */
+}
+
+/* 마지막 행의 각 셀에 특정 스타일 적용 */
+.table-container tr:last-child td:first-child {
+  border-bottom-left-radius: 4px; /* 왼쪽 하단 둥근 모서리 */
+}
+
+.table-container tr:last-child td:last-child {
+  border-bottom-right-radius: 4px; /* 오른쪽 하단 둥근 모서리 */
+}
+
+/* 페이지네이션 스타일 */
+.pagination {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 16px; /* table-container와 16px 간격 */
+}
+
+/* 페이지네이션 버튼 스타일 */
+.button {
+  width: 40px; /* 너비 설정 */
+  height: 40px; /* 높이 설정 */
+  border: none;
+  padding: 0; /* 패딩 제거 */
+  background-color: #f8f8f8; /* 기본 배경색 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 17.5px; /* 폰트 크기 설정 */
+  font-weight: 600; /* 폰트 굵기 설정 */
+  color: #000000; /* 글자색 설정 */
+  border-radius: 0;
+}
+
+/* 이미지 스타일 */
+.button img {
+  width: 100%; /* 이미지 너비를 버튼 크기에 맞춤 */
+  height: auto; /* 이미지 높이 자동 조절 */
+  display: block; /* 이미지 블록 표시 */
+}
+
+/* 특정 버튼에만 적용할 스타일 */
+.button.active,
+.button:hover {
+  background-color: #274c77; /* 활성화/호버 시 배경색 */
+  color: #ffffff; /* 활성화/호버 시 글자색 */
+}
+
+@media (max-width: 1024px) {
+  /* 전체 컨테이너가 화면 너비에 맞게 스크롤바가 생기도록 조정 */
+  .container {
+    width: auto; /* 너비를 자동으로 조정 */
+    overflow-x: auto; /* 가로 스크롤바 활성화 */
+    overflow-y: hidden; /* 세로 스크롤바 비활성화 */
+    padding-right: 0; /* 우측 패딩 제거 */
+  }
+
+  /* 페이지네이션을 좌측으로 32px 떨어진 위치에 배치 */
+  .pagination {
+    justify-content: flex-start; /* 좌측 정렬 */
+    width: 832px;
+    margin-top: 0;
+  }
+
+  /* 테이블 너비 조정 */
+  .table-container {
+    min-width: 832px; /* 최소 너비 설정 */
+    padding-right: 32px; /* 우측 패딩을 32px로 설정 */
+    margin-bottom: 16px;
+  }
+
+  /* 버튼과 테이블 간의 상단 마진 조정 */
+  .pagination {
+    margin-top: 8px; /* 마진 감소 */
+  }
+}

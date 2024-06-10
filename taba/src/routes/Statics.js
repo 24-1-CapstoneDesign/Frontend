@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import LeftNav from "../components/LeftNav";
 import NavBar from "../components/NavBar";
 import Calendar from "../components/Calendar";
-import Table from "../components/Table";
 import StaticsGraph from "../components/StaticsGraph";
 import "../styles/statics.css";
+import StaticTable from "../components/StaticTable";
+import { CalendarProvider } from "../context/StaticTableContext";
 
 export default function Statics() {
   const [sessionData, setSessionData] = useState(null);
@@ -17,12 +18,16 @@ export default function Statics() {
       <div className="left-nav">
         <LeftNav />
       </div>
-      <div className="calendar">
-        <Calendar setSessionData={setSessionData} />
-      </div>
-      <div className="table">
-        <Table />
-      </div>
+
+      <CalendarProvider>
+        <div className="calendar">
+          <Calendar setSessionData={setSessionData}/>
+        </div>
+        <div className="table">
+          <StaticTable />
+        </div>
+      </CalendarProvider>
+
       <div className="staticsgraph">
         <StaticsGraph sessionData={sessionData} />
       </div>
