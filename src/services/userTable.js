@@ -1,4 +1,4 @@
-const baseUrl = "http://localhost:3000/api";
+const baseUrl = "api";
 
 // 모든 사용자 정보를 가져오는 함수
 export const fetchUsers = async () => {

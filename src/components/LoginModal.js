@@ -30,10 +30,10 @@ const LoginModal = () => {
   const handleLogin = () => {
     loginUser(id, pw)
       .then((response) => {
-        console.log("Login Response:", response); // 응답 데이터 확인
+        // console.log("Login Response:", response); // 응답 데이터 확인
         if (response.success) {
           const userData = response.data; // 응답에서 사용자 데이터 추출
-          console.log("User Data:", userData); // 사용자 데이터 확인
+          // console.log("User Data:", userData); // 사용자 데이터 확인
           setUser({ name: userData.name }); // 사용자 정보 설정
           localStorage.setItem("jwt", userData.jwt); // JWT를 LocalStorage에 저장
           localStorage.setItem("user", JSON.stringify({ name: userData.name })); // 사용자 정보를 LocalStorage에 저장
