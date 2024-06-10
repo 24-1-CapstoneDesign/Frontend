@@ -5,12 +5,13 @@ import rightArrow from "../icons/tail_right.png"; // 오른쪽 화살표 이미�
 import CalendarContext from "../context/StaticTableContext";
 import { fetchSessionData } from "../services/dateSelect";
 
-function Calendar({setSessionData}) {
+function Calendar({ setSessionData }) {
   const { startDate, endDate, setStartDate, setEndDate } =
     useContext(CalendarContext);
 
   const [currentYear, setCurrentYear] = useState(startDate.getFullYear());
   const [currentMonth, setCurrentMonth] = useState(startDate.getMonth() + 1);
+  const [isSelectingStart, setIsSelectingStart] = useState(true);
 
   const daysInMonth = (year, month) => new Date(year, month, 0).getDate();
 
@@ -21,6 +22,16 @@ function Calendar({setSessionData}) {
   const isSelected = (day) => {
     const date = new Date(currentYear, currentMonth - 1, day);
     return startDate && endDate && date >= startDate && date <= endDate;
+  };
+
+  const handleDayClick = (day) => {
+    if (isSelectingStart) {
+      handleDateChange(setStartDate, currentYear, currentMonth, day);
+      setIsSelectingStart(false); // 다음 클릭은 endDate를 변경하게 설정
+    } else {
+      handleDateChange(setEndDate, currentYear, currentMonth, day);
+      setIsSelectingStart(true); // 다음 클릭은 startDate를 변경하게 설정
+    }
   };
 
   const renderDays = () => {
@@ -41,9 +52,7 @@ function Calendar({setSessionData}) {
         <div
           key={i}
           className={`day ${dayClass} ${isSelected(i) ? "selected" : ""}`}
-          onClick={() =>
-            handleDateChange(setStartDate, currentYear, currentMonth, i)
-          }
+          onClick={() => handleDayClick(i)}
         >
           <span>{i}</span>
         </div>
@@ -61,6 +70,26 @@ function Calendar({setSessionData}) {
 
     fetchData();
   }, [startDate, endDate, setSessionData]);
+
+  useEffect(() => {
+    setCurrentYear(startDate.getFullYear());
+    setCurrentMonth(startDate.getMonth() + 1);
+  }, [startDate]);
+
+  useEffect(() => {
+    setCurrentYear(endDate.getFullYear());
+    setCurrentMonth(endDate.getMonth() + 1);
+  }, [endDate]);
+
+  // 이 부분이 수정되었습니다
+  useEffect(() => {
+    setIsSelectingStart(true); // startDate가 변경될 때는 다음 클릭에서 startDate를 변경하도록 설정
+  }, [startDate]);
+
+  // 이 부분이 수정되었습니다
+  useEffect(() => {
+    setIsSelectingStart(false); // endDate가 변경될 때는 다음 클릭에서 endDate를 변경하도록 설정
+  }, [endDate]);
 
   return (
     <div className="custom-calendar">
