@@ -1,14 +1,3 @@
-export function LocationData() {
-  const url = `/api/drivingsessions/error/list`;
-
-  return fetch(url, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  }).then((response) => response.json());
-}
-
 export function ChangePW(id, ori_pw, new_pw, check_pw) {
   const url = `/api/managers/update`;
 
@@ -19,7 +8,8 @@ export function ChangePW(id, ori_pw, new_pw, check_pw) {
 
   const data = {
     login_id: id,
-    password: new_pw,
+    past_password: ori_pw,
+    new_password: new_pw,
   };
 
   return fetch(url, {

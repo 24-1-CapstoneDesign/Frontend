@@ -6,7 +6,7 @@ import "../styles/passwordmodal.css";
 import eye_close from "../icons/eye_close.png";
 import eye_open from "../icons/eye_open.png";
 
-import { ChangePW } from "../services/LocationService";
+import { ChangePW } from "../services/ChangePW";
 import UserContext from "../context/UserContext";
 
 const PasswordModal = () => {
