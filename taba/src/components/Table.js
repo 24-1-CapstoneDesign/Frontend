@@ -14,23 +14,59 @@ function CarTable() {
   const totalItems = carData.length;
   const totalPages = Math.ceil(totalItems / itemsPerPage);
 
+  const { naver } = window;
+
+  function removeFirstPart(address) {
+    const parts = address.split(" ", 3); // 주소를 처음 두 번째 공백까지 나누기
+    if (parts.length > 1) {
+      return address.substring(address.indexOf(parts[2])); // 두 번째 부분부터 반환
+    }
+    return address; // 공백이 없으면 원래 주소 반환
+  }
+
+  function reversecoord(latitude, longitude) {
+    return new Promise((resolve, reject) => {
+      naver.maps.Service.reverseGeocode(
+        {
+          coords: new naver.maps.LatLng(latitude, longitude),
+        },
+        function (status, response) {
+          if (status !== naver.maps.Service.Status.OK) {
+            console.error("Reverse geocoding failed with status:", status);
+            reject(status);
+            return;
+          }
+
+          var result = response.v2; // 검색 결과의 컨테이너
+          var address = result.address; // 검색 결과로 만든 주소
+          var formattedAddress = removeFirstPart(address.jibunAddress); // 주소의 앞부분 제거
+
+          resolve(formattedAddress);
+        }
+      );
+    });
+  }
+
   const GetErrorLocation = async () => {
     try {
       const response = await GetErrorList();
       if (response.success) {
         const ErrorData = response.data; // 응답에서 사용자 데이터 추출
-        const formattedData = ErrorData.map((item) => ({
-          id: item.id,
-          size:
-            item.car_size === "SMALL"
-              ? "소형"
-              : item.car_size === "MEDIUM"
-              ? "중형"
-              : "대형", // 차급 변환
-          number: item.car_number,
-          location: `${item.latitude}, ${item.longitude}`, // 예시로 위도와 경도를 location 필드에 저장
-          solved: item.status === "ERROR" ? "미해결" : "해결완료", // 상태에 따라 해결 여부 설정
-        }));
+        const formattedData = await Promise.all(
+          ErrorData.map(async (item) => ({
+            id: item.id,
+            size:
+              item.car_size === "SMALL"
+                ? "소형"
+                : item.car_size === "MEDIUM"
+                ? "중형"
+                : "대형", // 차급 변환
+            number: item.car_number,
+            location: await reversecoord(item.latitude, item.longitude), // 예시로 위도와 경도를 location 필드에 저장
+            solved: item.status === "ERROR" ? "미해결" : "해결완료", // 상태에 따라 해결 여부 설정
+          }))
+        );
+        console.log(formattedData);
         setcarData(formattedData);
       } else {
         alert("Error Location failed.");

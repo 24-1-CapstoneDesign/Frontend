@@ -7,6 +7,8 @@ import "../styles/map.css";
 
 import PositiveMarker from "./PositiveMarker";
 import NegativeMarker from "./NegativeMarker";
+import error_mobile from "../icons/error_mobile.png";
+import solve_mobile from "../icons/solve_mobile.png";
 
 const Map = () => {
   const mapElement = useRef(null);
@@ -112,17 +114,31 @@ const Map = () => {
 
     const newMarkerList = []; // 새로운 배열 생성
 
+    const isSmallScreen = window.innerWidth < 360;
+
     ErrorLocation.forEach((location) => {
       let markerHtml;
 
-      if (location.status === "SOLVE") {
-        markerHtml = ReactDOMServer.renderToString(
-          <PositiveMarker id={location.id} />
-        );
+      if (isSmallScreen) {
+        if (location.status === "SOLVE") {
+          markerHtml = ReactDOMServer.renderToString(
+            <img src={solve_mobile} />
+          );
+        } else {
+          markerHtml = ReactDOMServer.renderToString(
+            <img src={error_mobile} />
+          );
+        }
       } else {
-        markerHtml = ReactDOMServer.renderToString(
-          <NegativeMarker id={location.id} />
-        );
+        if (location.status === "SOLVE") {
+          markerHtml = ReactDOMServer.renderToString(
+            <PositiveMarker id={location.id} />
+          );
+        } else {
+          markerHtml = ReactDOMServer.renderToString(
+            <NegativeMarker id={location.id} />
+          );
+        }
       }
 
       const newMarker = new naver.maps.Marker({
