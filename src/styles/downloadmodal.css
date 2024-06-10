@@ -21,7 +21,7 @@
   background: white;
   padding: 28px 24px; /* 변경된 padding */
   width: 328px; /* 너비 설정 */
-  height: 240px; /* 높이 설정 */
+  min-height: 120px; /* 최소 높이 설정 */
   border-radius: 10px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
   display: flex;
