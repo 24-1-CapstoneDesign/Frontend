@@ -14,10 +14,42 @@ function StaticsGraph({ sessionData }) {
     locations: [],
   });
 
+  const { naver } = window;
+
+  function removeFirstPart(address) {
+    const parts = address.split(" ", 2); // 주소를 처음 두 번째 공백까지 나누기
+    if (parts.length > 1) {
+      return address.substring(address.indexOf(parts[1])); // 두 번째 부분부터 반환
+    }
+    return address; // 공백이 없으면 원래 주소 반환
+  }
+
+  function reversecoord(latitude, longitude) {
+    return new Promise((resolve, reject) => {
+      naver.maps.Service.reverseGeocode(
+        {
+          coords: new naver.maps.LatLng(latitude, longitude),
+        },
+        function (status, response) {
+          if (status !== naver.maps.Service.Status.OK) {
+            console.error("Reverse geocoding failed with status:", status);
+            reject(status);
+            return;
+          }
+
+          var result = response.v2; // 검색 결과의 컨테이너
+          var address = result.address; // 검색 결과로 만든 주소
+          var formattedAddress = removeFirstPart(address.jibunAddress); // 주소의 앞부분 제거
+
+          resolve(formattedAddress);
+        }
+      );
+    });
+  }
+
   useEffect(() => {
     const fetchCarSizes = async () => {
       if (sessionData && Array.isArray(sessionData.data)) {
-        console.log("sessionData:", sessionData.data);
         const carSizeCounts = { small: 0, medium: 0, large: 0 };
         const successFailureCounts = { success: 0, failure: 0 };
         const locations = new Set();
@@ -25,7 +57,6 @@ function StaticsGraph({ sessionData }) {
         const carDataPromises = sessionData.data.map(async (session) => {
           if (session.car_id) {
             const carData = await fetchCarData(session.car_id);
-            console.log(`Car data for car_id ${session.car_id}:`, carData);
             return {
               ...session,
               car_size: carData.data.car_size.toLowerCase(),
@@ -35,14 +66,9 @@ function StaticsGraph({ sessionData }) {
         });
 
         const sessionsWithCarData = await Promise.all(carDataPromises);
-        console.log("Sessions with car data:", sessionsWithCarData);
 
-        sessionsWithCarData.forEach((session) => {
+        for (const session of sessionsWithCarData) {
           if (session.car_size) {
-            console.log(
-              `Car size for session ${session.car_id}:`,
-              session.car_size
-            );
             if (session.car_size === "small") carSizeCounts.small++;
             if (session.car_size === "medium") carSizeCounts.medium++;
             if (session.car_size === "large") carSizeCounts.large++;
@@ -59,14 +85,13 @@ function StaticsGraph({ sessionData }) {
           }
 
           if (session.error_latitude && session.error_longitude) {
-            locations.add(
-              `${session.error_latitude}, ${session.error_longitude}`
+            const address = await reversecoord(
+              session.error_latitude,
+              session.error_longitude
             );
+            locations.add(address);
           }
-        });
-
-        console.log("Car size counts:", carSizeCounts);
-        console.log("Success/Failure counts:", successFailureCounts);
+        }
 
         setData({
           small: carSizeCounts.small,
@@ -76,8 +101,6 @@ function StaticsGraph({ sessionData }) {
           failure: successFailureCounts.failure,
           locations: Array.from(locations).slice(0, 6), // 최대 6개까지만 출력
         });
-      } else {
-        console.log("sessionData is not an array:", sessionData);
       }
     };
 
