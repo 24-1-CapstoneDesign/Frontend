@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import LeftNav from "../components/LeftNav";
 import NavBar from "../components/NavBar";
 import Calendar from "../components/Calendar";
@@ -7,6 +7,8 @@ import StaticsGraph from "../components/StaticsGraph";
 import "../styles/statics.css";
 
 export default function Statics() {
+  const [sessionData, setSessionData] = useState(null);
+
   return (
     <div>
       <div className="navbar">
@@ -16,13 +18,13 @@ export default function Statics() {
         <LeftNav />
       </div>
       <div className="calendar">
-        <Calendar />
+        <Calendar setSessionData={setSessionData} />
       </div>
       <div className="table">
         <Table />
       </div>
       <div className="staticsgraph">
-        <StaticsGraph />
+        <StaticsGraph sessionData={sessionData} />
       </div>
     </div>
   );
