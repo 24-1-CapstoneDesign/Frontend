@@ -1,11 +1,11 @@
 {
     "rewrites": [
       {
-        "source": "https://ice-taba.site/api/:path*",
+        "source": "/api/:path*",
         "destination": "https://api.ice-taba.site/:path*"
       },
       {
-        "source": "https://ice-taba.site/api/:path*",
+        "source": "/api/:path*",
         "destination": "https://api.ice-taba.site/:path*/"
       }
     ]
