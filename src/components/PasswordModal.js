@@ -35,7 +35,7 @@ const PasswordModal = () => {
   const handlePW = () => {
     ChangePW(user.name, ori_pw, new_pw, check_pw)
       .then((response) => {
-        console.log("PW Response:", response); // 응답 데이터 확인
+        // console.log("PW Response:", response); // 응답 데이터 확인
         if (response.success) {
           alert("비밀번호가 변경되었습니다. 다시 로그인해주세요.");
           navigate("/");

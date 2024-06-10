@@ -7,6 +7,25 @@ import {
 
 const DownloadModal = ({ isVisible, onClose, sessions }) => {
   const [selectedExits, setSelectedExits] = useState({});
+  const [addresses, setAddresses] = useState([]);
+
+  useEffect(() => {
+    const fetchAddresses = async () => {
+      const addressPromises = sessions.map((session) => {
+        if (session.error_latitude !== null) {
+          return reversecoord(session.error_latitude, session.error_longitude);
+        } else {
+          return "위치 정보 없음";
+        }
+      });
+      const resolvedAddresses = await Promise.all(addressPromises);
+      setAddresses(resolvedAddresses);
+    };
+
+    if (sessions.length > 0) {
+      fetchAddresses();
+    }
+  }, [sessions]);
 
   const handleCheckboxChange = (e) => {
     const { name, checked } = e.target;
@@ -15,7 +34,6 @@ const DownloadModal = ({ isVisible, onClose, sessions }) => {
 
   const handleDownload = async () => {
     try {
-      // 선택된 세션의 ID를 가져옴
       const selectedSessions = sessions.filter(
         (_, index) => selectedExits[`session${index}`]
       );
@@ -25,7 +43,6 @@ const DownloadModal = ({ isVisible, onClose, sessions }) => {
         return;
       }
 
-      // 선택된 각 세션에 대해 센서 데이터를 가져옴
       for (const session of selectedSessions) {
         const sensorData = await fetchSensorDataBySessionId(
           session.driving_session_id
@@ -35,7 +52,6 @@ const DownloadModal = ({ isVisible, onClose, sessions }) => {
           throw new Error("No sensor data available.");
         }
 
-        // CSV 파일 생성 및 다운로드
         downloadCSV(
           sensorData,
           `sensor_data_session_${session.driving_session_id}.csv`
@@ -47,14 +63,40 @@ const DownloadModal = ({ isVisible, onClose, sessions }) => {
     }
   };
 
-  useEffect(() => {
-    console.log("Sessions in Modal: ", sessions); // 세션 데이터 로그 출력
-    sessions.forEach((session) => {
-      console.log("Session in Modal Details: ", session); // 각 세션의 상세 정보 출력
-    });
-  }, [sessions]);
-
   if (!isVisible) return null;
+
+  const { naver } = window;
+
+  function removeFirstPart(address) {
+    const parts = address.split(" ", 2);
+    if (parts.length > 1) {
+      return address.substring(address.indexOf(parts[1]));
+    }
+    return address;
+  }
+
+  function reversecoord(latitude, longitude) {
+    return new Promise((resolve, reject) => {
+      naver.maps.Service.reverseGeocode(
+        {
+          coords: new naver.maps.LatLng(latitude, longitude),
+        },
+        function (status, response) {
+          if (status !== naver.maps.Service.Status.OK) {
+            console.error("Reverse geocoding failed with status:", status);
+            reject(status);
+            return;
+          }
+
+          var result = response.v2;
+          var address = result.address;
+          var formattedAddress = removeFirstPart(address.jibunAddress);
+
+          resolve(formattedAddress);
+        }
+      );
+    });
+  }
 
   return (
     <div className="modal-overlay" onClick={onClose}>
@@ -69,9 +111,7 @@ const DownloadModal = ({ isVisible, onClose, sessions }) => {
                 checked={selectedExits[`session${index}`] || false}
                 onChange={handleCheckboxChange}
               />
-              {`위도: ${session.error_latitude || "위치 정보 없음"}, 경도: ${
-                session.error_longitude || "위치 정보 없음"
-              }`}
+              {addresses[index] || "주소 로딩 중..."}
             </label>
           ))
         ) : (

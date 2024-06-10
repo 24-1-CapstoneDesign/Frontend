@@ -18,7 +18,7 @@ function CarTable() {
 
   function removeFirstPart(address) {
     const parts = address.split(" ", 2); // 주소를 처음 두 번째 공백까지 나누기
-    console.log(parts);
+    // console.log(parts);
     if (parts.length > 1) {
       return address.substring(address.indexOf(parts[1])); // 두 번째 부분부터 반환
     }
@@ -67,7 +67,7 @@ function CarTable() {
             solved: item.status === "ERROR" ? "미해결" : "해결완료", // 상태에 따라 해결 여부 설정
           }))
         );
-        console.log(formattedData);
+        // console.log(formattedData);
         setcarData(formattedData);
       } else {
         alert("Error Location failed.");

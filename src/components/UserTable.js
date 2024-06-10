@@ -123,15 +123,17 @@ function UserTable() {
   };
 
   const totalItems = userData.length;
-  const totalPages = Math.ceil(totalItems / itemsPerPage);
+  const totalPages = Math.max(1, Math.ceil(totalItems / itemsPerPage));
   const maxPageNumberLimit = Math.min(
     totalPages,
     Math.ceil(currentPage / 5) * 5
   );
-  const minPageNumberLimit = maxPageNumberLimit - 4;
+  const minPageNumberLimit = Math.max(1, maxPageNumberLimit - 4);
 
   const handleClick = (pageNumber) => {
-    setCurrentPage(pageNumber);
+    if (pageNumber >= 1 && pageNumber <= totalPages) {
+      setCurrentPage(pageNumber);
+    }
   };
 
   const handlePrevSet = () => {

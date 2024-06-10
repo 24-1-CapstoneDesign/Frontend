@@ -64,7 +64,7 @@ function Calendar({ setSessionData }) {
   useEffect(() => {
     const fetchData = async () => {
       const response = await fetchSessionData(startDate, endDate);
-      console.log("Fetched session data:", response); // 데이터 확인을 위해 콘솔에 출력
+      // console.log("Fetched session data:", response); // 데이터 확인을 위해 콘솔에 출력
       setSessionData(response);
     };
 
