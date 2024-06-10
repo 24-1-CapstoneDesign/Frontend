@@ -1,7 +1,7 @@
 import React from "react";
 import LeftNav from "../components/LeftNav";
 import NavBar from "../components/NavBar";
-import Table from "../components/Table";
+import MainTable from "../components/MainTable";
 import Map from "../components/Map";
 
 export default function Main() {
@@ -17,7 +17,7 @@ export default function Main() {
         <Map />
       </div>
       <div className="table">
-        <Table />
+        <MainTable />
       </div>
     </div>
   );

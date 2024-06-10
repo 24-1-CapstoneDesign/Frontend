@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { useState, useEffect } from "react";
 import { fetchSessionData } from "../services/dateSelect";
 import "../styles/calendar.css";
@@ -7,6 +8,18 @@ import rightArrow from "../icons/tail_right.png";
 function Calendar({ setSessionData }) {
   const [startDate, setStartDate] = useState(new Date(2024, 3, 16));
   const [endDate, setEndDate] = useState(new Date(2024, 3, 18));
+=======
+import React, { useContext, useEffect, useState } from "react";
+import "../styles/calendar.css"; // CSS 스타일 임포트
+import downArrow from "../icons/down.png"; // 다운 아이콘 추가
+import rightArrow from "../icons/tail_right.png"; // 오른쪽 화살표 이미지 추가
+import CalendarContext from "../context/StaticTableContext";
+
+function Calendar() {
+  const { startDate, endDate, setStartDate, setEndDate } =
+    useContext(CalendarContext);
+
+>>>>>>> be94d46 (Add: Static 달력 추가)
   const [currentYear, setCurrentYear] = useState(startDate.getFullYear());
   const [currentMonth, setCurrentMonth] = useState(startDate.getMonth() + 1);
 
