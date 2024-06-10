@@ -38,5 +38,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://ice-taba.site:8080"
+  "proxy": "https://api.ice-taba.site"
 }
