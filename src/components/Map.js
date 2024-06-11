@@ -114,7 +114,7 @@ const Map = () => {
 
     const newMarkerList = []; // 새로운 배열 생성
 
-    const isSmallScreen = window.innerWidth < 360;
+    const isSmallScreen = window.innerWidth < 361;
 
     ErrorLocation.forEach((location) => {
       let markerHtml;
