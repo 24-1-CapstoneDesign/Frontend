@@ -176,7 +176,6 @@ function UserTable() {
             }
           }}
         />
-        <div className="search-icon" onClick={handleSearch}></div>
       </div>
       <div className="container">
         <div className="title">회원 차량 목록</div>
