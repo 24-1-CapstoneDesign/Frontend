@@ -58,7 +58,7 @@ const NavBar = () => {
             </button>
           </p>
 
-          <p className="greeting-normal">Hello</p>
+          <p className="greeting-normal">Hello &nbsp;</p>
           <p className="greeting-bold"> {user ? user.name : "Guest"}</p>
           <p>
             <button onClick={handleLogout} className="logout">
